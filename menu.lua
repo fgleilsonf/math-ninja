@@ -4,7 +4,7 @@
 
 local composer = require( "composer" )
 local scene = composer.newScene()
-local setup = require( "setup" )
+require( "setup" ) require( "cache" )
 
 function scene:create( event )
 	local sceneGroup = self.view
@@ -51,30 +51,37 @@ function scene:create( event )
     local titleGame = display.newText("Math Ninja",  display.contentWidth  * 0.5, display.contentHeight * 0.2, native.systemFontBold, 90)
 	sceneGroup:insert(titleGame)
 
-	function startGame( )
-		composer.gotoScene( "game" )
-	end
-
-	function startGame (operator)
-		composer.setVariable( "operator", operator )
-		composer.gotoScene( "game" )
-	end
-
     function rootSquare:tap(event)
-		startGame(1)
+		composer.gotoScene( "root-square" )
 	end
 
 	function operators:tap(event)
-		startGame(2)
+		composer.gotoScene( "4-operations" )
 	end
 
 	function calc:tap(event)
-		startGame(3)
+		composer.gotoScene( "number-square" )
 	end
 
 	rootSquare:addEventListener("tap", rootSquare)
 	operators:addEventListener("tap", operators)
 	calc:addEventListener("tap", calc)
+
+	unsetPontucao()
+
+	local pontuacao = getPontuacao()
+
+	local titleGame = display.newText("Recorde: "..pontuacao, display.contentWidth  * 0.2, display.contentHeight * 0.8, native.systemFontBold, 60)
+	sceneGroup:insert(titleGame)
+
+    local menu = display.newText("<< Menu >>", display.contentWidth  * 0.8, display.contentHeight * 0.8, native.systemFontBold, 60)
+    sceneGroup:insert(menu)
+
+    function menu:tap(event)
+        composer.gotoScene( "number-square" )
+    end
+
+    menu:addEventListener("tap", menu)
 end
 
 function scene:show( event )

@@ -5,4 +5,4 @@ display.setStatusBar (display.HiddenStatusBar)
 
 local composer = require( "composer" )
 
-composer.gotoScene( "number-square", "fade", 800 )
+composer.gotoScene( "options-menu", "fade", 800 )
