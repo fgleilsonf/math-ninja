@@ -1,6 +1,7 @@
 
 require ("physics")
 require( "setup" )
+require( "constants" )
 local ui = require("ui")
 local composer = require( "composer" )
 local scene = composer.newScene()
@@ -27,6 +28,8 @@ local minTimeBetweenSlashes = 150 -- Minimum amount of time in between each slas
 local minDistanceForSlashSound = 50 -- Amount of pixels the users finger needs to travel in one frame in order to play a slash sound
 
 local soundCut = audio.loadSound("cut.wav")
+local preExplosion = audio.loadSound("preExplosion.wav")
+local explosion = audio.loadSound("explosion.wav")
 
 local avalBall = {}
 
@@ -62,7 +65,13 @@ local maxAngularVelocity = 200
 local minAngularVelocityChopped = 100
 local maxAngularVelocityChopped = 200
 
-local operators = {"+", "/", "-", "*"}
+local operatorsSymbol = getOperators()
+local operators = {
+    operatorsSymbol.OPERATOR_MULTIPLICATION_,
+    operatorsSymbol.OPERATOR_DIVISION_,
+    operatorsSymbol.OPERATOR_SUBTRACTION_,
+    operatorsSymbol.OPERATOR_SUM_
+}
 
 local minGushRadius = 10
 local maxGushRadius = 25
@@ -98,14 +107,14 @@ function scene:create()
     local background = setupBackground("images/background3.jpg");
     sceneGroup:insert(background)
 
-    local LEFT_BALL_ = 220
-
     local ball = {}
     local lifes = {}
     local questions = {}
     local countLife = 3
 
     function initQuestions()
+        local LEFT_BALL_ = 220
+
         questions[0] = display.newText("?",  LEFT_BALL_, ball[0].y, native.systemFontBold, 70)
         questions[1] = display.newText("?",  LEFT_BALL_, ball[1].y, native.systemFontBold, 70)
         questions[2] = display.newText("?",  LEFT_BALL_, ball[2].y, native.systemFontBold, 70)
@@ -126,7 +135,6 @@ function scene:create()
     end
 
     function initBall()
-
         ball[0] = display.newImage(images.PATH_IMAGE_BALL_RED_, 120, display.contentHeight  * 0.36)
         ball[0].width = 100
         ball[0].height = 100
@@ -245,9 +253,8 @@ function scene:create()
 
         local fruitVelX, fruitVelY = fruit:getLinearVelocity()
 
-        -- Calculate the position of the chopped piece
         local half = display.newImage(fruit[section])
-        half.x = fruit.x - fruit.x -- Need to have the fruit's position relative to the origin in order to use the rotation matrix
+        half.x = fruit.x - fruit.x
         local yOffSet = section == "top" and -half.height / 2 or half.height / 2
         half.y = fruit.y + yOffSet - fruit.y
 
@@ -255,23 +262,20 @@ function scene:create()
         newPoint.x = half.x * math.cos(fruit.rotation * (math.pi /  180)) - half.y * math.sin(fruit.rotation * (math.pi /  180))
         newPoint.y = half.x * math.sin(fruit.rotation * (math.pi /  180)) + half.y * math.cos(fruit.rotation * (math.pi /  180))
 
-        half.x = newPoint.x + fruit.x -- Put the fruit back in its original position after applying the rotation matrix
+        half.x = newPoint.x + fruit.x
         half.y = newPoint.y + fruit.y
         sceneGroup:insert(half)
 
-        -- Set the rotation
         half.rotation = fruit.rotation
-        ballProp.radius = half.width / 2 -- We won't use a custom shape since the chopped up fruit doesn't interact with the player
+        ballProp.radius = half.width / 2
         physics.addBody(half, "dynamic", ballProp)
 
-        -- Set the linear velocity
         local velocity  = math.sqrt(math.pow(fruitVelX, 2) + math.pow(fruitVelY, 2))
         local xDirection = section == "top" and -1 or 1
         local velocityX = math.cos((fruit.rotation + 90) * (math.pi /  180)) * velocity * xDirection
         local velocityY = math.sin((fruit.rotation + 90) * (math.pi /  180)) * velocity
         half:setLinearVelocity(velocityX,  velocityY)
 
-        -- Calculate its angular velocity
         local minAngularVelocity = getRandomValue(minAngularVelocityChopped, maxAngularVelocityChopped)
         local direction = (math.random() < .5) and -1 or 1
         half.angularVelocity = minAngularVelocity * direction
@@ -328,6 +332,90 @@ function scene:create()
     function getBomb()
         local bomb = display.newImage( "images/bomb.png")
         return bomb
+    end
+
+    function blankOutScreen(bomb, linesGroup)
+
+        local circle = display.newCircle( bomb.x, bomb.y, 5 )
+        local circleGrowthTime = 300
+        local dissolveDuration = 1000
+
+        local dissolve = function(event)
+            transition.to(circle, {
+                alpha = 0,
+                time = dissolveDuration,
+                delay = 0,
+                onComplete=function(event)
+                    composer.gotoScene( "gameover" )
+                end
+            });
+        end
+
+        circle.alpha = 0
+        transition.to(circle, {time=circleGrowthTime, alpha = 1, width = display.contentWidth * 3, height = display.contentWidth * 3, onComplete = dissolve})
+
+        -- Vibrate the phone
+        system.vibrate()
+
+        bomb:removeSelf()
+        linesGroup:removeSelf()
+    end
+
+    function explodeBomb(bomb, listener)
+
+        bomb:removeEventListener("touch", listener)
+
+        -- The bomb should not move while exploding
+        bomb.bodyType = "kinematic"
+        bomb:setLinearVelocity(0,  0)
+        bomb.angularVelocity = 0
+
+        -- Shake the stage
+        local stage = display.getCurrentStage()
+
+        local moveRightFunction
+        local moveLeftFunction
+        local rightTrans
+        local leftTrans
+        local shakeTime = 50
+        local shakeRange = {min = 1, max = 25}
+
+        moveRightFunction = function(event) rightTrans = transition.to(stage, {x = math.random(shakeRange.min,shakeRange.max), y = math.random(shakeRange.min, shakeRange.max), time = shakeTime, onComplete=moveLeftFunction}); end
+        moveLeftFunction = function(event) leftTrans = transition.to(stage, {x = math.random(shakeRange.min,shakeRange.max) * -1, y = math.random(shakeRange.min,shakeRange.max) * -1, time = shakeTime, onComplete=moveRightFunction});  end
+
+        moveRightFunction()
+
+        local linesGroup = display.newGroup()
+
+        -- Generate a bunch of lines to simulate an explosion
+        local drawLine = function(event)
+
+            local line = display.newLine(bomb.x, bomb.y, display.contentWidth * 2, display.contentHeight * 2)
+            line.rotation = math.random(1,360)
+            line.strokeWidth = math.random(15, 25)
+            linesGroup:insert(line)
+        end
+        local lineTimer = timer.performWithDelay(100, drawLine, 0)
+
+        -- Function that is called after the pre explosion
+        local explode = function(event)
+
+            audio.play(explosion)
+            blankOutScreen(bomb, linesGroup);
+            timer.cancel(lineTimer)
+            stage.x = 0
+            stage.y = 0
+            transition.cancel(leftTrans)
+            transition.cancel(rightTrans)
+
+        end
+
+        -- Play the preExplosion sound first followed by the end explosion
+        audio.play(preExplosion, {onComplete = explode})
+
+        timer.cancel(fruitTimer)
+        timer.cancel(bombTimer)
+
     end
 
     function shootObject(type)
@@ -397,7 +485,7 @@ function createQuestion()
     local result = 0
 
     local simboloOperator = operators[operator]
-    if (simboloOperator == "/") then
+    if (simboloOperator == operatorsSymbol.OPERATOR_DIVISION_) then
         if (n2 == 0) then
             n2 = 1
         elseif (n1 ~= 0 and math.fmod(n1, n2) ~= 0 ) then
@@ -414,13 +502,12 @@ function createQuestion()
             n1 = divisoes[divisao].n1
             n2 = divisoes[divisao].n2
         end
-
         result = n1 / n2
-    elseif (simboloOperator == "*") then
+    elseif (simboloOperator == operatorsSymbol.OPERATOR_MULTIPLICATION_) then
         result = n1 * n2
-    elseif (simboloOperator == "-") then
+    elseif (simboloOperator == operatorsSymbol.OPERATOR_SUBTRACTION_) then
         result = n1 - n2
-    elseif (simboloOperator == "+") then
+    elseif (simboloOperator == operatorsSymbol.OPERATOR_SUM_) then
         result = n1 + n2
     end
 

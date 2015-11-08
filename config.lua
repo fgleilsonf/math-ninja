@@ -1,0 +1,6 @@
+application =
+{
+    content =
+    {
+    },
+}
