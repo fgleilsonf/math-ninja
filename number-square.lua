@@ -25,7 +25,6 @@ function scene:create( )
     local description = display.newText(text, display.contentWidth  * 0.52, display.contentHeight * 0.48, native.systemFontBold, 40)
     sceneGroup:insert(description)
 
-
     local back = display.newImage("images/back.png", display.contentWidth  * 0.9, display.contentHeight * 0.8)
     back.width = 100
     back.height = 100

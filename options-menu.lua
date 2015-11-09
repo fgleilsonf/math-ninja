@@ -22,19 +22,32 @@ function scene:create( event )
     local titleGame = display.newText("Math Ninja",  display.contentWidth  * 0.5, display.contentHeight * 0.2, native.systemFontBold, 90)
     sceneGroup:insert(titleGame)
 
-    local pontuacao = getPontuacao()
-
     local credits = display.newText("<< Créditos >>", display.contentWidth  * 0.5, display.contentHeight * 0.5, native.systemFontBold, 60)
     sceneGroup:insert(credits)
 
-    local credits = display.newText("<< Tutorial >>", display.contentWidth  * 0.5, display.contentHeight * 0.6, native.systemFontBold, 60)
-    sceneGroup:insert(credits)
+    local tutorial = display.newText("<< Tutorial >>", display.contentWidth  * 0.5, display.contentHeight * 0.6, native.systemFontBold, 60)
+    sceneGroup:insert(tutorial)
+
+    local back = display.newImage("images/back.png", display.contentWidth  * 0.9, display.contentHeight * 0.8)
+    back.width = 100
+    back.height = 100
+    sceneGroup:insert(back)
+
+    function back:tap(event)
+        composer.gotoScene( "menu" )
+    end
 
     function credits:tap(event)
-        composer.gotoScene( "number-square" )
+        composer.gotoScene( "credits" )
+    end
+
+    function tutorial:tap(event)
+        composer.gotoScene( "tutorial" )
     end
 
     credits:addEventListener("tap", credits)
+    tutorial:addEventListener("tap", tutorial)
+    back:addEventListener("tap", back)
 end
 
 function scene:show( event )

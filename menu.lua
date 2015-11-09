@@ -78,7 +78,7 @@ function scene:create( event )
     sceneGroup:insert(menu)
 
     function menu:tap(event)
-        composer.gotoScene( "number-square" )
+        composer.gotoScene( "options-menu" )
     end
 
     menu:addEventListener("tap", menu)

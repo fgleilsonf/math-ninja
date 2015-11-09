@@ -19,7 +19,6 @@ local _H = display.contentHeight
 function scene:create( )
     local sceneGroup = self.view
 
-
     local images = {
         "images/tutorial/menu.png",
         "images/tutorial/game.png",
@@ -27,8 +26,19 @@ function scene:create( )
     }
 
     local slideImages = slideView.new(images, nil)
-    slideImages.pad = 1200
     sceneGroup:insert(slideImages)
+
+
+    local back = display.newImage("images/back.png", display.contentWidth  * 0.9, display.contentHeight * 0.8)
+    back.width = 100
+    back.height = 100
+    sceneGroup:insert(back)
+
+    function back:tap(event)
+        composer.gotoScene( "menu" )
+    end
+
+    back:addEventListener("tap", back)
 end 
 
 function scene:show( event )
