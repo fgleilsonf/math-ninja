@@ -67,8 +67,6 @@ function scene:create( event )
 	operators:addEventListener("tap", operators)
 	calc:addEventListener("tap", calc)
 
-	unsetPontucao()
-
 	local pontuacao = getPontuacao()
 
 	local titleGame = display.newText("Recorde: "..pontuacao, display.contentWidth  * 0.2, display.contentHeight * 0.8, native.systemFontBold, 60)
@@ -84,31 +82,15 @@ function scene:create( event )
     menu:addEventListener("tap", menu)
 end
 
-function scene:show( event )
-	local sceneGroup = self.view
-	local phase = event.phase
-	
-	if phase == "will" then
-	elseif phase == "did" then
-	end	
+function scene:show()
+	print("Mostrando Cena")
+end
+function scene:hide()
+	print("Hide Cena")
 end
 
-function scene:hide( event )
-	local sceneGroup = self.view
-	local phase = event.phase
-	
-	if event.phase == "will" then
-	elseif phase == "did" then
-	end	
-end
-
-function scene:destroy( event )
-	local sceneGroup = self.view
-	
-	if myImage then
-		myImage:removeSelf()
-		myImage = nil
-	end
+function scene:destroy()
+	print("Destuindo  Cena")
 end
 
 scene:addEventListener( "create", scene )

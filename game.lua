@@ -1,7 +1,5 @@
 
-require ("physics")
-require( "setup" )
-require( "constants" )
+require ("physics") require( "setup" ) require( "constants" ) require( "cache" ) require( "path_files" )
 local ui = require("ui")
 local composer = require( "composer" )
 local scene = composer.newScene()
@@ -10,13 +8,14 @@ physics.start()
 physics.setGravity( 0, 9.8 * 2)
 physics.start()
 
-require( "path_files" )
-
 local images = getImage()
 
-local PATH_IMAGE_BALL_RED_ = "images/ball_red.png"
-local PATH_IMAGE_BALL_GREEN_ = "images/ball_green.png"
-local PATH_IMAGE_BALL_BLUE_ = "images/ball_blue.png"
+local QUESTION_ABOUT_ROOT_SQUARE = 1
+local QUESTION_ABOUT_OPERATIONS_4 = 2
+local QUESTION_ABOUT_NUMBER_SQUARE = 3
+
+local themeFromQuestio = 0
+local scores = 0
 
 local endPoints = {}
 local maxPoints = 5
@@ -85,9 +84,9 @@ local minGushVelocityY = -350
 local maxGushVelocityY = 350
 
 local bombTimer
-local fruitTimer
+local ballTimer
 
-local fruitShootingInterval = 1000
+local ballShootingInterval = 1000
 local bombShootingInterval = 5000
 
 local splashImgs = {}
@@ -107,13 +106,15 @@ function scene:create()
     local background = setupBackground("images/background3.jpg");
     sceneGroup:insert(background)
 
+    themeFromQuestio = composer.getVariable( "operation" )
+
     local ball = {}
     local lifes = {}
     local questions = {}
     local countLife = 3
 
     function initQuestions()
-        local LEFT_BALL_ = 220
+        local LEFT_BALL_ = 230
 
         questions[0] = display.newText("?",  LEFT_BALL_, ball[0].y, native.systemFontBold, 70)
         questions[1] = display.newText("?",  LEFT_BALL_, ball[1].y, native.systemFontBold, 70)
@@ -145,10 +146,10 @@ function scene:create()
         ball[1].height = 100
         ball[1].color = "blue"
 
-        ball[2] = display.newImage(images.PATH_IMAGE_BALL_GREEN_, 120, display.contentHeight  * 0.64)
+        ball[2] = display.newImage(images.PATH_IMAGE_BALL_YELLOW_, 120, display.contentHeight  * 0.64)
         ball[2].width = 100
         ball[2].height = 100
-        ball[2].color = "green"
+        ball[2].color = "yellow"
 
         sceneGroup:insert(ball[0])
         sceneGroup:insert(ball[1])
@@ -159,97 +160,43 @@ function scene:create()
     initLife()
     initQuestions()
 
-    local questionToResponse = display.newText(" ? + ? = ?",  display.contentWidth * 0.5, display.contentHeight  * 0.5, native.systemFontBold, 90)
+    local questionToResponse = display.newText(" ? + ? = ?",  display.contentWidth * 0.209, display.contentHeight  * 0.15, native.systemFontBold, 70)
     questionToResponse:setTextColor(255, 255, 255)
     sceneGroup:insert(questionToResponse)
+
+--    local timerQuestion = display.newText("10",  display.contentWidth * 0.9, display.contentHeight  * 0.15, native.systemFontBold, 70)
+--    sceneGroup:insert(timerQuestion)
 
     Runtime:addEventListener("touch", drawSlashLine)
 
     function initBallAndSplash()
-        local ballRed = {}
-        ballRed.whole = PATH_IMAGE_BALL_RED_
-        ballRed.top = "images/ball_red_top.png"
-        ballRed.bottom = "images/ball_red_bottom.png"
-        ballRed.splash = PATH_IMAGE_BALL_RED_
-        ballRed.color = "red"
+        local ballRed = {
+            whole = images.PATH_IMAGE_BALL_RED_,
+            top = images.PATH_IMAGE_BALL_RED_TOP_,
+            bottom = images.PATH_IMAGE_BALL_RED_BOTTOM_,
+            color = "red"
+        }
+
+        local ballBlue = {
+            whole = images.PATH_IMAGE_BALL_BLUE_,
+            top = images.PATH_IMAGE_BALL_BLUE_TOP_,
+            bottom = images.PATH_IMAGE_BALL_BLUE_BOTTOM_,
+            color = "blue"
+        }
+
+        local ballYellow = {
+            whole = images.PATH_IMAGE_BALL_YELLOW_,
+            top = images.PATH_IMAGE_BALL_YELLOW_TOP_,
+            bottom = images.PATH_IMAGE_BALL_YELLOW_BOTTOM_,
+            color = "yellow"
+        }
+
         table.insert(avalBall, ballRed)
-
-        local ballBlue = {}
-        ballBlue.whole = PATH_IMAGE_BALL_BLUE_
-        ballBlue.top = "images/ball_blue_top.png"
-        ballBlue.bottom = "images/ball_blue_bottom.png"
-        ballBlue.splash = PATH_IMAGE_BALL_BLUE_
-        ballBlue.color = "blue"
         table.insert(avalBall, ballBlue)
-
-        local ballGreen = {}
-        ballGreen.whole = PATH_IMAGE_BALL_GREEN_
-        ballGreen.top = "images/ball_green_top.png"
-        ballGreen.bottom = "images/ball_green_bottom.png"
-        ballGreen.splash = PATH_IMAGE_BALL_GREEN_
-        ballGreen.color = "green"
-        table.insert(avalBall, ballGreen)
-
-        table.insert(splashImgs, "images/ok.png")
-        table.insert(splashImgs, "images/error.png")
+        table.insert(avalBall, ballYellow)
     end
 
-    function createGush(ball)
-        local i
-        for  i = 0, numOfGushParticles do
-            local gush = display.newCircle( ball.x, ball.y, math.random(minGushRadius, maxGushRadius) )
-
-            if (ball.color == "red") then
-                gush:setFillColor(255, 0, 0, 255)
-            end
-
-            if (ball.color == "blue") then
-                gush:setFillColor(255, 0, 255, 255)
-            end
-
-            if (ball.color == "green") then
-                gush:setFillColor(255, 255, 0, 255)
-            end
-
-            gushProp.radius = gush.width / 2
-            physics.addBody(gush, "dynamic", gushProp)
-
-            local xVelocity = math.random(minGushVelocityX, maxGushVelocityX)
-            local yVelocity = math.random(minGushVelocityY, maxGushVelocityY)
-
-            gush:setLinearVelocity(xVelocity, yVelocity)
-
-            transition.to(gush, {
-                time = gushFadeTime,
-                delay = gushFadeDelay,
-                width = 0,
-                height = 0,
-                alpha = 0,
-                onComplete = function(event) gush:removeSelf() end
-            })
-        end
-    end
-
-    function createSplash(ball)
-        local splash = getRandomSplash(ball)
-        splash.x = ball.x
-        splash.y = ball.y
-        splash.alpha = splashInitAlpha
-        sceneGroup:insert(splash)
-
-        transition.to(splash, {
-            time = splashFadeTime,
-            alpha = 0,
-            y = splash.y + splashSlideDistance,
-            delay = splashFadeDelayTime,
-            onComplete = function(event)
-                splash:removeSelf()
-            end
-        })
-
-    end
-
-    function createFruitPiece(fruit, section)
+    function createBallPiece(fruit, section)
 
         local fruitVelX, fruitVelY = fruit:getLinearVelocity()
 
@@ -281,40 +228,41 @@ function scene:create()
         half.angularVelocity = minAngularVelocity * direction
     end
 
+    function gameOver ()
+        local pontuacao = tonumber ( getPontuacao() )
+        if (scores > pontuacao) then
+            setPontuacao(scores)
+        end
+
+        timer.cancel(ballTimer)
+        timer.cancel(bombTimer)
+
+        composer.setVariable( "scores", scores )
+        composer.removeScene( "game" )
+        composer.gotoScene( "gameover" )
+    end
+
     function chopBall(ball)
-
-        print("BOla", colorBallWithResponse)
-
         if (colorBallWithResponse == ball.color) then
+            scores = scores + 1
             createOtherQuestion()
         else
             lifes[countLife].alpha = 0
             countLife = countLife - 1
 
             if (countLife == 0) then
-                composer.gotoScene( "gameover" )
+                gameOver()
             end
         end
 
-        createFruitPiece(ball, "top")
-        createFruitPiece(ball, "bottom")
-
-        createSplash(ball)
-        createGush(ball)
+        createBallPiece(ball, "top")
+        createBallPiece(ball, "bottom")
 
         ball:removeSelf()
     end
 
     function getRandomValue(min, max)
         return min + math.abs(((max - min) * math.random()))
-    end
-
-    function getRandomSplash(ball)
-        if (colorBallWithResponse == ball.color) then
-            return display.newImage(splashImgs[1])
-        end
-
-        return display.newImage(splashImgs[2])
     end
 
     function getRandomBall()
@@ -330,7 +278,7 @@ function scene:create()
     end
 
     function getBomb()
-        local bomb = display.newImage( "images/bomb.png")
+        local bomb = display.newImage( "images/bomb2.png")
         return bomb
     end
 
@@ -345,16 +293,19 @@ function scene:create()
                 alpha = 0,
                 time = dissolveDuration,
                 delay = 0,
-                onComplete=function(event)
-                    composer.gotoScene( "gameover" )
-                end
+                onComplete=gameOver()
             });
         end
 
         circle.alpha = 0
-        transition.to(circle, {time=circleGrowthTime, alpha = 1, width = display.contentWidth * 3, height = display.contentWidth * 3, onComplete = dissolve})
+        transition.to(circle, {
+            time=circleGrowthTime,
+            alpha = 1,
+            width = display.contentWidth * 3,
+            height = display.contentWidth * 3,
+            onComplete = dissolve
+        })
 
-        -- Vibrate the phone
         system.vibrate()
 
         bomb:removeSelf()
@@ -365,12 +316,10 @@ function scene:create()
 
         bomb:removeEventListener("touch", listener)
 
-        -- The bomb should not move while exploding
         bomb.bodyType = "kinematic"
         bomb:setLinearVelocity(0,  0)
         bomb.angularVelocity = 0
 
-        -- Shake the stage
         local stage = display.getCurrentStage()
 
         local moveRightFunction
@@ -387,19 +336,16 @@ function scene:create()
 
         local linesGroup = display.newGroup()
 
-        -- Generate a bunch of lines to simulate an explosion
         local drawLine = function(event)
-
             local line = display.newLine(bomb.x, bomb.y, display.contentWidth * 2, display.contentHeight * 2)
             line.rotation = math.random(1,360)
             line.strokeWidth = math.random(15, 25)
             linesGroup:insert(line)
         end
+
         local lineTimer = timer.performWithDelay(100, drawLine, 0)
 
-        -- Function that is called after the pre explosion
         local explode = function(event)
-
             audio.play(explosion)
             blankOutScreen(bomb, linesGroup);
             timer.cancel(lineTimer)
@@ -407,15 +353,12 @@ function scene:create()
             stage.y = 0
             transition.cancel(leftTrans)
             transition.cancel(rightTrans)
-
         end
 
-        -- Play the preExplosion sound first followed by the end explosion
         audio.play(preExplosion, {onComplete = explode})
 
-        timer.cancel(fruitTimer)
+        timer.cancel(ballTimer)
         timer.cancel(bombTimer)
-
     end
 
     function shootObject(type)
@@ -448,17 +391,11 @@ function scene:create()
 
     end
 
-    function formattedQuestion(n1, n2, operator)
-        return n1 .. " " .. operator .. " " .. n2 .. " = ?"
-    end
-
     initBallAndSplash()
     shootObject("ball")
 
     function createOtherQuestion()
         local dataQuestion = createQuestion()
-
-        questionToResponse.text = formattedQuestion(dataQuestion.n1, dataQuestion.n2, dataQuestion.simboloOperator)
 
         questions[0].text = dataQuestion.result + 1
         questions[1].text = dataQuestion.result - 1
@@ -466,8 +403,9 @@ function scene:create()
 
         local position = math.random(0, 2)
         questions[position].text = dataQuestion.result
-
         table.insert(listQuestios, dataQuestion);
+
+        questionToResponse.text = "Q"..#listQuestios.." : "..dataQuestion.question
 
         colorBallWithResponse = ball[position].color
     end
@@ -475,48 +413,65 @@ function scene:create()
     createOtherQuestion()
 
     bombTimer = timer.performWithDelay(bombShootingInterval, function(event) shootObject("bomb") end, 0)
-    fruitTimer = timer.performWithDelay(fruitShootingInterval, function(event) shootObject("ball") end, 0)
+    ballTimer = timer.performWithDelay(ballShootingInterval, function(event) shootObject("ball") end, 0)
 end
 
 function createQuestion()
-    local operator = math.random(1, 4)
-    local n1 = math.random(0, 9)
-    local n2 = math.random(0, 9)
-    local result = 0
+    if (themeFromQuestio == QUESTION_ABOUT_ROOT_SQUARE) then
+        local n1 = math.random(0, 20)
 
-    local simboloOperator = operators[operator]
-    if (simboloOperator == operatorsSymbol.OPERATOR_DIVISION_) then
-        if (n2 == 0) then
-            n2 = 1
-        elseif (n1 ~= 0 and math.fmod(n1, n2) ~= 0 ) then
-            local divisoes = {
-                {n1 = 9, n2 = 3},
-                {n1 = 8, n2 = 4},
-                {n1 = 8, n2 = 2},
-                {n1 = 6, n2 = 3},
-                {n1 = 6, n2 = 2},
-                {n1 = 4, n2 = 2}
-            }
+        return {
+            question = "Raiz ".. (n1 * n1) .. " = ?",
+            result = n1
+        }
+    elseif (themeFromQuestio == QUESTION_ABOUT_OPERATIONS_4) then
+        local operator = math.random(1, 4)
+        local n1 = math.random(0, 9)
+        local n2 = math.random(0, 9)
+        local result = 0
 
-            local divisao = math.random(1, #divisoes)
-            n1 = divisoes[divisao].n1
-            n2 = divisoes[divisao].n2
+        local simboloOperator = operators[operator]
+        if (simboloOperator == operatorsSymbol.OPERATOR_DIVISION_) then
+            if (n2 == 0) then
+                n2 = 1
+            elseif (n1 ~= 0 and math.fmod(n1, n2) ~= 0 ) then
+                local divisoes = {
+                    {n1 = 9, n2 = 3},
+                    {n1 = 8, n2 = 4},
+                    {n1 = 8, n2 = 2},
+                    {n1 = 6, n2 = 3},
+                    {n1 = 6, n2 = 2},
+                    {n1 = 4, n2 = 2}
+                }
+
+                local divisao = math.random(1, #divisoes)
+                n1 = divisoes[divisao].n1
+                n2 = divisoes[divisao].n2
+            end
+            result = n1 / n2
+        elseif (simboloOperator == operatorsSymbol.OPERATOR_MULTIPLICATION_) then
+            result = n1 * n2
+        elseif (simboloOperator == operatorsSymbol.OPERATOR_SUBTRACTION_) then
+            result = n1 - n2
+        elseif (simboloOperator == operatorsSymbol.OPERATOR_SUM_) then
+            result = n1 + n2
         end
-        result = n1 / n2
-    elseif (simboloOperator == operatorsSymbol.OPERATOR_MULTIPLICATION_) then
-        result = n1 * n2
-    elseif (simboloOperator == operatorsSymbol.OPERATOR_SUBTRACTION_) then
-        result = n1 - n2
-    elseif (simboloOperator == operatorsSymbol.OPERATOR_SUM_) then
-        result = n1 + n2
-    end
 
-    return {
-        n1 = n1,
-        n2 = n2,
-        simboloOperator = simboloOperator,
-        result = result
-    }
+        return {
+            n1 = n1,
+            n2 = n2,
+            question = n1 .. " " .. simboloOperator .. " " .. n2 .. " = ?",
+            simboloOperator = simboloOperator,
+            result = result
+        }
+    elseif (themeFromQuestio == QUESTION_ABOUT_NUMBER_SQUARE) then
+        local n1 = math.random(0, 20)
+
+        return {
+            question = n1.."² = ?",
+            result =  (n1 * n1),
+        }
+    end
 end
 
 function drawSlashLine(event)

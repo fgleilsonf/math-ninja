@@ -39,7 +39,7 @@ function scene:create( event )
     sceneGroup:insert(play)
 
     function play:tap(event)
-        composer.setVariable( "operator", 1 )
+        composer.setVariable( "operation", 1 )
         composer.gotoScene( "game" )
     end
 

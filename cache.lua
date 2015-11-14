@@ -14,7 +14,7 @@ local function onSystemEvent( event )
 end
 
 -- Set up the table if it doesn't exist
-local tablesetup = [[CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY, key, value);]]
+local tablesetup = [[CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY, key, value INTEGER);]]
 db:exec( tablesetup )
 
 -- print( "SQLite version " .. sqlite3.version() )
@@ -32,10 +32,10 @@ local function getByKey( key )
     return 0
 end
 
-function setPontuacao( )
+function setPontuacao( pontuacao )
     deleteByKey( NAME_KEY_PONTUACAO_ )
 
-    local tablefill = [[INSERT INTO settings VALUES (null, 'pontuacao', ']].. NAME_KEY_PONTUACAO_ ..[['); ]]
+    local tablefill = [[INSERT INTO settings VALUES (null, 'pontuacao', ']].. pontuacao ..[['); ]]
 
     db:exec( tablefill )
 end
