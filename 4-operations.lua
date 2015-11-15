@@ -3,46 +3,43 @@
 ]]
 
 local composer = require( "composer" )
-require( "setup" )
+require( "setup" ) require( "glossario" )
 local scene = composer.newScene()
 
-function scene:create( event )
+local textBox
+
+function scene:create( )
     local sceneGroup = self.view
 
     local background = setupBackground("images/background3.jpg");
     sceneGroup:insert(background)
 
-    local titleGame = display.newText("4 - Operações",  display.contentWidth  * 0.5, display.contentHeight * 0.15, native.systemFontBold, 70)
+    local titleGame = display.newText("4 - Operações",  display.contentWidth  * 0.5, 170, native.systemFontBold, 45)
     sceneGroup:insert(titleGame)
 
+    textBox = native.newTextBox( 510, 370, display.contentWidth - 140, 300 )
+    textBox.text = getGlossario().FOR_OPERATIONS
+    textBox.isEditable = false
+    textBox.size= 40
+    sceneGroup:insert(textBox)
 
-    local multiplication = display.newText("X : Multiplicações", display.contentWidth  * 0.198, display.contentHeight * 0.3, native.systemFontBold, 40)
-    sceneGroup:insert(multiplication)
-
-    local division = display.newText("/ : Divisão", display.contentWidth  * 0.15, display.contentHeight * 0.4, native.systemFontBold, 40)
-    sceneGroup:insert(division)
-
-    local sum = display.newText("+ : Soma", display.contentWidth  * 0.132, display.contentHeight * 0.5, native.systemFontBold, 40)
-    sceneGroup:insert(sum)
-
-    local subtraction = display.newText("- : Subtração", display.contentWidth  * 0.17, display.contentHeight * 0.6, native.systemFontBold, 40)
-    sceneGroup:insert(subtraction)
-
-    local back = display.newImage("images/back.png", display.contentWidth  * 0.9, display.contentHeight * 0.8)
-    back.width = 100
-    back.height = 100
+    local back = display.newImage("images/back.png", display.contentWidth  * 0.9, display.contentHeight * 0.75)
+    back.width = 70
+    back.height = 70
     sceneGroup:insert(back)
 
-    function back:tap(event)
+    function back:tap()
+        textBox.isVisible = false
         composer.gotoScene( "menu" )
     end
 
     back:addEventListener("tap", back)
 
-    local play = display.newText("<< Jogar >>", display.contentWidth  * 0.5, display.contentHeight * 0.8, native.systemFontBold, 60)
+    local play = display.newText("<< Jogar >>", display.contentWidth  * 0.5, display.contentHeight * 0.75, native.systemFontBold, 45)
     sceneGroup:insert(play)
 
-    function play:tap(event)
+    function play:tap()
+        textBox.isVisible = false
         composer.setVariable( "operation", 2 )
         composer.gotoScene( "game" )
     end
@@ -50,32 +47,13 @@ function scene:create( event )
     play:addEventListener("tap", play)
 end
 
-function scene:show( event )
-    local sceneGroup = self.view
-    local phase = event.phase
-
-    if phase == "will" then
-    elseif phase == "did" then
-    end
+function scene:show( )
+    textBox.isVisible = true
 end
 
-function scene:hide( event )
-    local sceneGroup = self.view
-    local phase = event.phase
+function scene:hide( ) end
 
-    if event.phase == "will" then
-    elseif phase == "did" then
-    end
-end
-
-function scene:destroy( event )
-    local sceneGroup = self.view
-
-    if myImage then
-        myImage:removeSelf()
-        myImage = nil
-    end
-end
+function scene:destroy( ) end
 
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )

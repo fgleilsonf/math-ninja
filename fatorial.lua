@@ -8,19 +8,19 @@ local scene = composer.newScene()
 
 local textBox
 
-function scene:create( event )
+function scene:create( )
     local sceneGroup = self.view
 
     local background = setupBackground("images/background3.jpg");
     sceneGroup:insert(background)
 
-    local titleGame = display.newText("Raiz quadrada",  display.contentWidth  * 0.5, 170, native.systemFontBold, 45)
+    local titleGame = display.newText("Fatorial",  display.contentWidth  * 0.5, 170, native.systemFontBold, 45)
     sceneGroup:insert(titleGame)
 
     textBox = native.newTextBox( 510, 370, display.contentWidth - 140, 300 )
-    textBox.text = getGlossario().ROOT_SQUARE
+    textBox.text = getGlossario().FATORIAL
     textBox.isEditable = false
-    textBox.size= 30
+    textBox.size= 25
     sceneGroup:insert(textBox)
 
     local back = display.newImage("images/back.png", display.contentWidth  * 0.9, display.contentHeight * 0.75)
@@ -40,20 +40,20 @@ function scene:create( event )
 
     function play:tap()
         textBox.isVisible = false
-        composer.setVariable( "operation", 1 )
+        composer.setVariable( "operation", 4 )
         composer.gotoScene( "game" )
     end
 
     play:addEventListener("tap", play)
 end
 
-function scene:show()
+function scene:show( )
     textBox.isVisible = true
 end
 
-function scene:hide() end
+function scene:hide( ) end
 
-function scene:destroy() end
+function scene:destroy( ) end
 
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )

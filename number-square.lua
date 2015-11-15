@@ -6,35 +6,40 @@ local composer = require( "composer" )
 require( "setup" ) require( "glossario" )
 local scene = composer.newScene()
 
+local textBox
+
 function scene:create( )
     local sceneGroup = self.view
 
     local background = setupBackground("images/background3.jpg");
     sceneGroup:insert(background)
 
-    local titleGame = display.newText("Quadrado de um Número",  display.contentWidth  * 0.5, display.contentHeight * 0.15, native.systemFontBold, 70)
+    local titleGame = display.newText("Quadrado de um Número",  display.contentWidth  * 0.5, 170, native.systemFontBold, 45)
     sceneGroup:insert(titleGame)
 
-    local text = getGlossario().NUMBER_SQUARE
+    textBox = native.newTextBox( 510, 370, display.contentWidth - 140, 300 )
+    textBox.text = getGlossario().NUMBER_SQUARE
+    textBox.isEditable = false
+    textBox.size= 30
+    sceneGroup:insert(textBox)
 
-    local description = display.newText(text, display.contentWidth  * 0.52, display.contentHeight * 0.48, native.systemFontBold, 40)
-    sceneGroup:insert(description)
-
-    local back = display.newImage("images/back.png", display.contentWidth  * 0.9, display.contentHeight * 0.8)
-    back.width = 100
-    back.height = 100
+    local back = display.newImage("images/back.png", display.contentWidth  * 0.9, display.contentHeight * 0.75)
+    back.width = 70
+    back.height = 70
     sceneGroup:insert(back)
 
-    function back:tap(event)
+    function back:tap()
+        textBox.isVisible = false
         composer.gotoScene( "menu" )
     end
 
     back:addEventListener("tap", back)
 
-    local play = display.newText("<< Jogar >>", display.contentWidth  * 0.5, display.contentHeight * 0.8, native.systemFontBold, 60)
+    local play = display.newText("<< Jogar >>", display.contentWidth  * 0.5, display.contentHeight * 0.75, native.systemFontBold, 45)
     sceneGroup:insert(play)
 
-    function play:tap(event)
+    function play:tap()
+        textBox.isVisible = false
         composer.setVariable( "operation", 3 )
         composer.gotoScene( "game" )
     end
@@ -42,32 +47,13 @@ function scene:create( )
     play:addEventListener("tap", play)
 end
 
-function scene:show( event )
-    local sceneGroup = self.view
-    local phase = event.phase
-
-    if phase == "will" then
-    elseif phase == "did" then
-    end
+function scene:show( )
+    textBox.isVisible = true
 end
 
-function scene:hide( event )
-    local sceneGroup = self.view
-    local phase = event.phase
+function scene:hide( ) end
 
-    if event.phase == "will" then
-    elseif phase == "did" then
-    end
-end
-
-function scene:destroy( event )
-    local sceneGroup = self.view
-
-    if myImage then
-        myImage:removeSelf()
-        myImage = nil
-    end
-end
+function scene:destroy( ) end
 
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )

@@ -6,92 +6,95 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 require( "setup" ) require( "cache" )
 
-function scene:create( event )
+function scene:create()
 	local sceneGroup = self.view
-
-	local xMin = display.screenOriginX
-    local yMin = display.screenOriginY
-    local xMax = display.contentWidth - display.screenOriginX
-    local yMax = display.contentHeight - display.screenOriginY
-    local _W = display.contentWidth
-    local _H = display.contentHeight
 
     local background = setupBackground("images/background3.jpg");
     sceneGroup:insert(background)
 
 	local ball = {}
+	local radius = 160
 
-    ball[1] = display.newImage("images/ball_green.png", display.contentWidth  * 0.3, display.contentHeight * 0.5)
-    ball[1].width = 200
-    ball[1].height = 200
+    ball[1] = display.newImage("images/ball_green.png", display.contentWidth  * 0.2, display.contentHeight * 0.5)
+    ball[1].width = radius
+    ball[1].height = radius
     sceneGroup:insert(ball[1])
 
-    ball[2] = display.newImage("images/ball_green.png", display.contentWidth  * 0.5, display.contentHeight * 0.5)
-    ball[2].width = 200
-    ball[2].height = 200
+    ball[2] = display.newImage("images/ball_green.png", display.contentWidth  * 0.4, display.contentHeight * 0.5)
+    ball[2].width = radius
+    ball[2].height = radius
     sceneGroup:insert(ball[2])
 
-    ball[3] = display.newImage("images/ball_green.png", display.contentWidth  * 0.7, display.contentHeight * 0.5)
-    ball[3].width = 200
-    ball[3].height = 200
+    ball[3] = display.newImage("images/ball_green.png", display.contentWidth  * 0.6, display.contentHeight * 0.5)
+    ball[3].width = radius
+    ball[3].height = radius
     sceneGroup:insert(ball[3])
 
-	local rootSquare = display.newImage("images/raiz2.png", display.contentWidth  * 0.3, display.contentHeight * 0.5)
-	sceneGroup:insert(rootSquare)
+	ball[4] = display.newImage("images/ball_green.png", display.contentWidth  * 0.8, display.contentHeight * 0.5)
+	ball[4].width = radius
+	ball[4].height = radius
+	sceneGroup:insert(ball[4])
 
-	local operators = display.newImage("images/operators.png", display.contentWidth  * 0.5, display.contentHeight * 0.5)
-	operators.width = 110
-	operators.height = 110
+	local rootSquare = display.newImage("images/raiz2.png", ball[1].x, display.contentHeight * 0.5)
+    rootSquare.width = 100
+    rootSquare.height = 100
+    sceneGroup:insert(rootSquare)
+
+	local operators = display.newImage("images/operators.png", ball[2].x, display.contentHeight * 0.5)
+	operators.width = 80
+	operators.height = 80
 	sceneGroup:insert(operators)
 
-	local calc = display.newText("X²", display.contentWidth  * 0.7, display.contentHeight * 0.5, native.systemFontBold, 80)
-	calc:setTextColor(0, 0, 0)
-	sceneGroup:insert(calc)
+	local numberSquare = display.newText("X²", ball[3].x + 10, display.contentHeight * 0.5, native.systemFontBold, 70)
+    numberSquare:setTextColor(0, 0, 0)
+	sceneGroup:insert(numberSquare)
 
-    local titleGame = display.newText("Math Ninja",  display.contentWidth  * 0.5, display.contentHeight * 0.2, native.systemFontBold, 90)
+    local fatorial = display.newText("n!", ball[4].x, display.contentHeight * 0.5, native.systemFontBold, 70)
+    fatorial:setTextColor(0, 0, 0)
+    sceneGroup:insert(fatorial)
+
+    local titleGame = display.newText("Math Ninja",  display.contentWidth  * 0.5, 190, native.systemFontBold, 70)
 	sceneGroup:insert(titleGame)
 
-    function rootSquare:tap(event)
+    function rootSquare:tap()
 		composer.gotoScene( "root-square" )
 	end
 
-	function operators:tap(event)
+	function operators:tap()
 		composer.gotoScene( "4-operations" )
-	end
+    end
 
-	function calc:tap(event)
+	function numberSquare:tap()
 		composer.gotoScene( "number-square" )
-	end
+    end
+
+    function fatorial:tap()
+        composer.gotoScene( "fatorial" )
+    end
 
 	rootSquare:addEventListener("tap", rootSquare)
 	operators:addEventListener("tap", operators)
-	calc:addEventListener("tap", calc)
+	numberSquare:addEventListener("tap", numberSquare)
+    fatorial:addEventListener("tap", fatorial)
 
 	local pontuacao = getPontuacao()
 
-	local titleGame = display.newText("Recorde: "..pontuacao, display.contentWidth  * 0.2, display.contentHeight * 0.8, native.systemFontBold, 60)
-	sceneGroup:insert(titleGame)
+	local recorde = display.newText("Recorde: "..pontuacao, 170, display.contentHeight * 0.77, native.systemFontBold, 40)
+	sceneGroup:insert(recorde)
 
-    local menu = display.newText("<< Menu >>", display.contentWidth  * 0.8, display.contentHeight * 0.8, native.systemFontBold, 60)
+    local menu = display.newText("<< Menu >>", display.contentWidth  * 0.82, display.contentHeight * 0.77, native.systemFontBold, 40)
     sceneGroup:insert(menu)
 
-    function menu:tap(event)
-        composer.gotoScene( "options-menu" )
+    function menu:tap()
+        composer.gotoScene( "options-menu", {time=800, effect="crossFade"} )
     end
 
     menu:addEventListener("tap", menu)
 end
 
-function scene:show()
-	print("Mostrando Cena")
-end
-function scene:hide()
-	print("Hide Cena")
-end
-
-function scene:destroy()
-	print("Destuindo  Cena")
-end
+function scene:show() end
+function scene:hide() end
+function scene:destroy() end
 
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )

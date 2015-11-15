@@ -1,5 +1,10 @@
 
-require ("physics") require( "setup" ) require( "constants" ) require( "cache" ) require( "path_files" )
+require ("physics")
+require( "setup" )
+require( "constants" )
+require( "cache" )
+require( "path_files" )
+
 local ui = require("ui")
 local composer = require( "composer" )
 local scene = composer.newScene()
@@ -9,10 +14,12 @@ physics.setGravity( 0, 9.8 * 2)
 physics.start()
 
 local images = getImage()
+local sounds = getSounds()
 
 local QUESTION_ABOUT_ROOT_SQUARE = 1
 local QUESTION_ABOUT_OPERATIONS_4 = 2
 local QUESTION_ABOUT_NUMBER_SQUARE = 3
+local QUESTION_ABOUT_FATORIAL = 4
 
 local themeFromQuestio = 0
 local scores = 0
@@ -26,9 +33,9 @@ local slashSoundEnabled = true -- sound should be enabled by default on startup
 local minTimeBetweenSlashes = 150 -- Minimum amount of time in between each slash sound
 local minDistanceForSlashSound = 50 -- Amount of pixels the users finger needs to travel in one frame in order to play a slash sound
 
-local soundCut = audio.loadSound("cut.wav")
-local preExplosion = audio.loadSound("preExplosion.wav")
-local explosion = audio.loadSound("explosion.wav")
+local soundCut = audio.loadSound(sounds.PATH_SOUND_SLASH_)
+local preExplosion = audio.loadSound(sounds.PATH_SOUND_PRE_EXPLOSION_)
+local explosion = audio.loadSound(sounds.PATH_SOUND_EXPLOSION_)
 
 local avalBall = {}
 
@@ -85,7 +92,9 @@ local maxGushVelocityY = 350
 
 local bombTimer
 local ballTimer
+local responseTimer
 
+local timeRemainingToRespond = 10
 local ballShootingInterval = 1000
 local bombShootingInterval = 5000
 
@@ -114,11 +123,11 @@ function scene:create()
     local countLife = 3
 
     function initQuestions()
-        local LEFT_BALL_ = 230
+        local LEFT_BALL_ = 170
 
-        questions[0] = display.newText("?",  LEFT_BALL_, ball[0].y, native.systemFontBold, 70)
-        questions[1] = display.newText("?",  LEFT_BALL_, ball[1].y, native.systemFontBold, 70)
-        questions[2] = display.newText("?",  LEFT_BALL_, ball[2].y, native.systemFontBold, 70)
+        questions[0] = display.newText("?",  LEFT_BALL_, ball[0].y, native.systemFontBold, 40)
+        questions[1] = display.newText("?",  LEFT_BALL_, ball[1].y, native.systemFontBold, 40)
+        questions[2] = display.newText("?",  LEFT_BALL_, ball[2].y, native.systemFontBold, 40)
 
         sceneGroup:insert(questions[0])
         sceneGroup:insert(questions[1])
@@ -126,9 +135,10 @@ function scene:create()
     end
 
     function initLife()
-        lifes[1] = display.newImage(images.PATH_IMAGE_LIFE_, display.contentWidth  - 110, 85)
-        lifes[2] = display.newImage(images.PATH_IMAGE_LIFE_, display.contentWidth  - 180, 85)
-        lifes[3] = display.newImage(images.PATH_IMAGE_LIFE_, display.contentWidth  - 250, 85)
+        local y = 170
+        lifes[1] = display.newImage(images.PATH_IMAGE_LIFE_, display.contentWidth  - 100, y)
+        lifes[2] = display.newImage(images.PATH_IMAGE_LIFE_, display.contentWidth  - 170, y)
+        lifes[3] = display.newImage(images.PATH_IMAGE_LIFE_, display.contentWidth  - 240, y)
 
         sceneGroup:insert(lifes[1])
         sceneGroup:insert(lifes[2])
@@ -136,19 +146,23 @@ function scene:create()
     end
 
     function initBall()
-        ball[0] = display.newImage(images.PATH_IMAGE_BALL_RED_, 120, display.contentHeight  * 0.36)
-        ball[0].width = 100
-        ball[0].height = 100
+        local width = 70
+        local height = 70
+        local left = 100
+
+        ball[0] = display.newImage(images.PATH_IMAGE_BALL_RED_, left, 270)
+        ball[0].width = width
+        ball[0].height = height
         ball[0].color = "red"
 
-        ball[1] = display.newImage(images.PATH_IMAGE_BALL_BLUE_, 120, display.contentHeight  * 0.5)
-        ball[1].width = 100
-        ball[1].height = 100
+        ball[1] = display.newImage(images.PATH_IMAGE_BALL_BLUE_, left, 350)
+        ball[1].width = width
+        ball[1].height = height
         ball[1].color = "blue"
 
-        ball[2] = display.newImage(images.PATH_IMAGE_BALL_YELLOW_, 120, display.contentHeight  * 0.64)
-        ball[2].width = 100
-        ball[2].height = 100
+        ball[2] = display.newImage(images.PATH_IMAGE_BALL_YELLOW_, left, 430)
+        ball[2].width = width
+        ball[2].height = height
         ball[2].color = "yellow"
 
         sceneGroup:insert(ball[0])
@@ -160,12 +174,17 @@ function scene:create()
     initLife()
     initQuestions()
 
-    local questionToResponse = display.newText(" ? + ? = ?",  display.contentWidth * 0.209, display.contentHeight  * 0.15, native.systemFontBold, 70)
+    local questionToResponse = display.newText(" ? = ?",  150, 170, native.systemFontBold, 50)
     questionToResponse:setTextColor(255, 255, 255)
     sceneGroup:insert(questionToResponse)
 
---    local timerQuestion = display.newText("10",  display.contentWidth * 0.9, display.contentHeight  * 0.15, native.systemFontBold, 70)
---    sceneGroup:insert(timerQuestion)
+    local alarm = display.newImage("images/alarm_clock.png", display.contentWidth * 0.45, 170)
+    alarm.width = 80
+    alarm.height = 100
+    sceneGroup:insert(alarm)
+
+    local timerTextQuestion = display.newText("10",  display.contentWidth * 0.52, 170, native.systemFontBold, 50)
+    sceneGroup:insert(timerTextQuestion)
 
     Runtime:addEventListener("touch", drawSlashLine)
 
@@ -196,31 +215,32 @@ function scene:create()
         table.insert(avalBall, ballYellow)
     end
 
-    function createBallPiece(fruit, section)
+    function createBallPiece(ball, section)
 
-        local fruitVelX, fruitVelY = fruit:getLinearVelocity()
+        local ballVelX, ballVelY = ball:getLinearVelocity()
 
-        local half = display.newImage(fruit[section])
-        half.x = fruit.x - fruit.x
+        local half = display.newImage(ball[section])
+        half.x = ball.x - ball.x
         local yOffSet = section == "top" and -half.height / 2 or half.height / 2
-        half.y = fruit.y + yOffSet - fruit.y
+        half.y = ball.y + yOffSet - ball.y
 
         local newPoint = {}
-        newPoint.x = half.x * math.cos(fruit.rotation * (math.pi /  180)) - half.y * math.sin(fruit.rotation * (math.pi /  180))
-        newPoint.y = half.x * math.sin(fruit.rotation * (math.pi /  180)) + half.y * math.cos(fruit.rotation * (math.pi /  180))
+        newPoint.x = half.x * math.cos(ball.rotation * (math.pi /  180)) - half.y * math.sin(ball.rotation * (math.pi /  180))
+        newPoint.y = half.x * math.sin(ball.rotation * (math.pi /  180)) + half.y * math.cos(ball.rotation * (math.pi /  180))
 
-        half.x = newPoint.x + fruit.x
-        half.y = newPoint.y + fruit.y
+        half.x = newPoint.x + ball.x
+        half.y = newPoint.y + ball.y
+
         sceneGroup:insert(half)
 
-        half.rotation = fruit.rotation
+        half.rotation = ball.rotation
         ballProp.radius = half.width / 2
         physics.addBody(half, "dynamic", ballProp)
 
-        local velocity  = math.sqrt(math.pow(fruitVelX, 2) + math.pow(fruitVelY, 2))
+        local velocity  = math.sqrt(math.pow(ballVelX, 2) + math.pow(ballVelY, 2))
         local xDirection = section == "top" and -1 or 1
-        local velocityX = math.cos((fruit.rotation + 90) * (math.pi /  180)) * velocity * xDirection
-        local velocityY = math.sin((fruit.rotation + 90) * (math.pi /  180)) * velocity
+        local velocityX = math.cos((ball.rotation + 90) * (math.pi /  180)) * velocity * xDirection
+        local velocityY = math.sin((ball.rotation + 90) * (math.pi /  180)) * velocity
         half:setLinearVelocity(velocityX,  velocityY)
 
         local minAngularVelocity = getRandomValue(minAngularVelocityChopped, maxAngularVelocityChopped)
@@ -234,6 +254,7 @@ function scene:create()
             setPontuacao(scores)
         end
 
+        timer.cancel(responseTimer)
         timer.cancel(ballTimer)
         timer.cancel(bombTimer)
 
@@ -242,17 +263,26 @@ function scene:create()
         composer.gotoScene( "gameover" )
     end
 
+    function loseLife()
+        lifes[countLife].fill.effect = "filter.monotone"
+        lifes[countLife].fill.effect.r = 0.5
+        lifes[countLife].fill.effect.g = 0.1
+        lifes[countLife].fill.effect.b = 0.2
+        lifes[countLife].fill.effect.a = 1
+
+        countLife = countLife - 1
+
+        if (countLife == 0) then
+            gameOver()
+        end
+    end
+
     function chopBall(ball)
         if (colorBallWithResponse == ball.color) then
             scores = scores + 1
             createOtherQuestion()
         else
-            lifes[countLife].alpha = 0
-            countLife = countLife - 1
-
-            if (countLife == 0) then
-                gameOver()
-            end
+            loseLife()
         end
 
         createBallPiece(ball, "top")
@@ -271,7 +301,6 @@ function scene:create()
         ball.whole = ballProp.whole
         ball.top = ballProp.top
         ball.bottom = ballProp.bottom
-        ball.splash = ballProp.splash
         ball.color = ballProp.color
 
         return ball
@@ -364,6 +393,9 @@ function scene:create()
     function shootObject(type)
         local object = type == "ball" and getRandomBall() or getBomb()
 
+        object.width = 90
+        object.height = 90
+
         sceneGroup:insert(object)
 
         object.x = display.contentWidth / 2
@@ -403,11 +435,45 @@ function scene:create()
 
         local position = math.random(0, 2)
         questions[position].text = dataQuestion.result
-        table.insert(listQuestios, dataQuestion);
+        table.insert(listQuestios, dataQuestion)
 
-        questionToResponse.text = "Q"..#listQuestios.." : "..dataQuestion.question
-
+        questionToResponse.text = dataQuestion.question
         colorBallWithResponse = ball[position].color
+
+        timeRemainingToRespond = 10
+        timerTextQuestion.text = timeRemainingToRespond
+        responseTimer = timer.performWithDelay(1000, startTimeRemainingToRespond, 0)
+
+        local size = string.len(questions[0].text)
+        local sizeX = 170
+        
+        if (size > 5) then
+            sizeX = size * 20 + 80
+        elseif (size == 3) then
+            sizeX = 180
+        elseif (size == 4) then
+            sizeX = 190
+        elseif (size == 5) then
+            sizeX = 200
+        end
+
+        questions[0].x = sizeX
+        questions[1].x = sizeX
+        questions[2].x = sizeX
+    end
+
+    function startTimeRemainingToRespond()
+        timeRemainingToRespond = timeRemainingToRespond - 1
+        timerTextQuestion.text = timeRemainingToRespond
+
+        if (timeRemainingToRespond == 0) then
+            timer.cancel(responseTimer)
+            loseLife()
+
+            if (countLife > 0) then
+               createOtherQuestion()
+            end
+        end
     end
 
     createOtherQuestion()
@@ -471,6 +537,21 @@ function createQuestion()
             question = n1.."² = ?",
             result =  (n1 * n1),
         }
+    elseif (themeFromQuestio == QUESTION_ABOUT_FATORIAL) then
+        local n1 = math.random(0, 11)
+
+        function fat(n)
+            if n == 0 then
+                return 1
+            else
+                return n * fat(n - 1)
+            end
+        end
+
+        return {
+            question = n1.."! = ?",
+            result =  fat(n1),
+        }
     end
 end
 
@@ -515,32 +596,9 @@ function drawSlashLine(event)
     end
 end
 
-function scene:show( event )
-    local sceneGroup = self.view
-    local phase = event.phase
-
-    if phase == "will" then
-    elseif phase == "did" then
-    end
-end
-
-function scene:hide( event )
-    local sceneGroup = self.view
-    local phase = event.phase
-
-    if event.phase == "will" then
-    elseif phase == "did" then
-    end
-end
-
-function scene:destroy( event )
-    local sceneGroup = self.view
-
-    if myImage then
-        myImage:removeSelf()
-        myImage = nil
-    end
-end
+function scene:show( ) end
+function scene:hide( ) end
+function scene:destroy( ) end
 
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
