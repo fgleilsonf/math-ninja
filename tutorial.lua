@@ -21,18 +21,19 @@ function scene:create( )
 
     local images = {
         "images/tutorial/menu.png",
-        "images/tutorial/game.png",
-        "images/tutorial/gameover.png"
+        "images/tutorial/2.png"
     }
 
     local slideImages = slideView.new(images, nil)
     sceneGroup:insert(slideImages)
 
-
     local back = display.newImage("images/back.png", display.contentWidth  * 0.9, display.contentHeight * 0.8)
-    back.width = 100
-    back.height = 100
+    back.width = 70
+    back.height = 70
     sceneGroup:insert(back)
+
+    local titleGame = display.newText("Imagens do Jogo",  display.contentWidth  * 0.5, 140, native.systemFontBold, 50)
+    sceneGroup:insert(titleGame)
 
     function back:tap(event)
         composer.gotoScene( "menu" )

@@ -1,22 +1,9 @@
----------------------------------------------------------------
---					Modular Slider by JLZ					 --
---					jose@zunware.com						 --
----------------------------------------------------------------
-
---[[This Module presents a way to instantiate multiple sliders in
-	 a single view. I created this because the samle code from 
-	 Corona SDK only lets you create one instance for a certain 
-	 view. ]] 
-
-
 module(..., package.seeall)
 
 ---------------------------------------------------------------
--- Move Settings:
 local minimumDragTolerance = 60 
 ---------------------------------------------------------------
 
--- Constants:
 local screenW, screenH = display.contentWidth, display.contentHeight
 local viewableScreenW, viewableScreenH = display.viewableContentWidth, display.viewableContentHeight
 local screenOffsetW, screenOffsetH = display.contentWidth -  display.viewableContentWidth, display.contentHeight - display.viewableContentHeight
@@ -24,35 +11,33 @@ local pad = 20
 local top = 0
 local bottom = 0
 
---[[ Creates and returns a new Instance of a slider. The slider IsA diplayGroup,
-		so it can listen for the "touch" event.]]
-function new(imageSet, slideBackground)
+local xMin = display.screenOriginX
+local yMin = display.screenOriginY
+local xMax = display.contentWidth - display.screenOriginX
+local yMax = display.contentHeight - display.screenOriginY
+local _W = display.contentWidth
+local _H = display.contentHeight
+
+function new(imageSet)
 	local slider = display.newGroup()
 	slider.images = {}
 	slider.imgNum = nil
 
-	-- Create Images with provided imageset
 	for i=1, #imageSet do
 		local p = display.newImage(imageSet[i])
 		local h = viewableScreenH-(top+bottom)
 
-		-- Resize images:
-		if p.width > viewableScreenW or p.height > h then
-			if p.width/viewableScreenW > p.height/h then 
-					p.xScale = viewableScreenW/p.width
-					p.yScale = viewableScreenW/p.width
-			else
-					p.xScale = h/p.height
-					p.yScale = h/p.height
-			end		 
-		end
-		-- Add to group:
 		slider:insert(p)
+
+		p.width = (xMax - xMin) - 120
+		p.height = (yMax - yMin) - 200
+		p.x = _W * 0.5
+		p.y = _H * 0.5
 
 		-- Place all images except first offscreen:
 		if (i > 1) then
 			p.x = screenW*1.5 + pad -- all images offscreen except the first one
-		else 
+		else
 			p.x = screenW*.5
 		end
 		-- Center height:

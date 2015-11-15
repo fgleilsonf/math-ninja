@@ -442,11 +442,15 @@ function scene:create()
 
         timeRemainingToRespond = 10
         timerTextQuestion.text = timeRemainingToRespond
+
+        if (responseTimer) then
+            timer.cancel(responseTimer)
+        end
         responseTimer = timer.performWithDelay(1000, startTimeRemainingToRespond, 0)
 
         local size = string.len(questions[0].text)
         local sizeX = 170
-        
+
         if (size > 5) then
             sizeX = size * 20 + 80
         elseif (size == 3) then

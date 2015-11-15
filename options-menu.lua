@@ -9,28 +9,21 @@ require( "setup" ) require( "cache" )
 function scene:create( event )
     local sceneGroup = self.view
 
-    local xMin = display.screenOriginX
-    local yMin = display.screenOriginY
-    local xMax = display.contentWidth - display.screenOriginX
-    local yMax = display.contentHeight - display.screenOriginY
-    local _W = display.contentWidth
-    local _H = display.contentHeight
-
     local background = setupBackground("images/background3.jpg");
     sceneGroup:insert(background)
 
-    local titleGame = display.newText("Math Ninja",  display.contentWidth  * 0.5, display.contentHeight * 0.2, native.systemFontBold, 90)
+    local titleGame = display.newText("Math Ninja",  display.contentWidth  * 0.5, 190, native.systemFontBold, 70)
     sceneGroup:insert(titleGame)
 
-    local credits = display.newText("<< Créditos >>", display.contentWidth  * 0.5, display.contentHeight * 0.5, native.systemFontBold, 60)
+    local credits = display.newText("<< Créditos >>", display.contentWidth  * 0.5, display.contentHeight * 0.5, native.systemFontBold, 50)
     sceneGroup:insert(credits)
 
-    local tutorial = display.newText("<< Tutorial >>", display.contentWidth  * 0.5, display.contentHeight * 0.6, native.systemFontBold, 60)
+    local tutorial = display.newText("<< Tutorial >>", display.contentWidth  * 0.5, display.contentHeight * 0.6, native.systemFontBold, 50)
     sceneGroup:insert(tutorial)
 
-    local back = display.newImage("images/back.png", display.contentWidth  * 0.9, display.contentHeight * 0.8)
-    back.width = 100
-    back.height = 100
+    local back = display.newImage("images/back.png", display.contentWidth  * 0.9, display.contentHeight * 0.75)
+    back.width = 70
+    back.height = 70
     sceneGroup:insert(back)
 
     function back:tap(event)
@@ -38,11 +31,11 @@ function scene:create( event )
     end
 
     function credits:tap(event)
-        composer.gotoScene( "credits" )
+        composer.gotoScene( "credits", {time=800, effect="crossFade"}  )
     end
 
     function tutorial:tap(event)
-        composer.gotoScene( "tutorial" )
+        composer.gotoScene( "tutorial", {time=800, effect="crossFade"}  )
     end
 
     credits:addEventListener("tap", credits)
@@ -50,32 +43,11 @@ function scene:create( event )
     back:addEventListener("tap", back)
 end
 
-function scene:show( event )
-    local sceneGroup = self.view
-    local phase = event.phase
+function scene:show( event ) end
 
-    if phase == "will" then
-    elseif phase == "did" then
-    end
-end
+function scene:hide( event ) end
 
-function scene:hide( event )
-    local sceneGroup = self.view
-    local phase = event.phase
-
-    if event.phase == "will" then
-    elseif phase == "did" then
-    end
-end
-
-function scene:destroy( event )
-    local sceneGroup = self.view
-
-    if myImage then
-        myImage:removeSelf()
-        myImage = nil
-    end
-end
+function scene:destroy( event ) end
 
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )

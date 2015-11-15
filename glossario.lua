@@ -1,5 +1,11 @@
 function getGlossario()
     return {
+        CREDITS = ""..
+                "                  *** Projeto de Estágio 1 FA7 ***\n"..
+                " Icones e imagens: https://www.iconfinder.com/\n"..
+                " Corona API documentação: https://docs.coronalabs.com/\n"..
+                " Projeto base: https://github.com/germc/Samurai-Fruit\n",
+
         FATORIAL = ""..
                 "       O fatorial de um número n (n pertence ao conjunto dos números naturais) "..
                 " é sempre o produto de todos os seus antecessores, incluindo si próprio e "..

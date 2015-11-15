@@ -3,8 +3,10 @@
 ]]
 
 local composer = require( "composer" )
-require( "setup" )
+require( "setup" ) require( "glossario" )
 local scene = composer.newScene()
+
+local textBox
 
 function scene:create( )
     local sceneGroup = self.view
@@ -12,56 +14,35 @@ function scene:create( )
     local background = setupBackground("images/background3.jpg");
     sceneGroup:insert(background)
 
-    local titlePage = display.newText("Créditos",  display.contentWidth  * 0.5, display.contentHeight * 0.15, native.systemFontBold, 70)
-    sceneGroup:insert(titlePage)
+    local titleGame = display.newText("Créditos",  display.contentWidth  * 0.5, 170, native.systemFontBold, 45)
+    sceneGroup:insert(titleGame)
 
-    local multiplication = display.newText("Definições", display.contentWidth  * 0.198, display.contentHeight * 0.3, native.systemFontBold, 40)
-    sceneGroup:insert(multiplication)
+    textBox = native.newTextBox( 510, 370, display.contentWidth - 140, 300 )
+    textBox.text = getGlossario().CREDITS
+    textBox.isEditable = false
+    textBox.size= 30
+    sceneGroup:insert(textBox)
 
-    local division = display.newText("Baseado no projeto Samuray-ninja", display.contentWidth  * 0.38, display.contentHeight * 0.4, native.systemFontBold, 40)
-    sceneGroup:insert(division)
-
-    local sum = display.newText("Imagens e ícones", display.contentWidth  * 0.25, display.contentHeight * 0.5, native.systemFontBold, 40)
-    sceneGroup:insert(sum)
-
-    local back = display.newImage("images/back.png", display.contentWidth  * 0.9, display.contentHeight * 0.8)
-    back.width = 100
-    back.height = 100
+    local back = display.newImage("images/back.png", display.contentWidth  * 0.9, display.contentHeight * 0.75)
+    back.width = 70
+    back.height = 70
     sceneGroup:insert(back)
 
-    function back:tap(event)
+    function back:tap()
+        textBox.isVisible = false
         composer.gotoScene( "options-menu" )
     end
 
     back:addEventListener("tap", back)
 end
 
-function scene:show( event )
-    local sceneGroup = self.view
-    local phase = event.phase
-
-    if phase == "will" then
-    elseif phase == "did" then
-    end
+function scene:show( )
+    textBox.isVisible = true
 end
 
-function scene:hide( event )
-    local sceneGroup = self.view
-    local phase = event.phase
+function scene:hide( ) end
 
-    if event.phase == "will" then
-    elseif phase == "did" then
-    end
-end
-
-function scene:destroy( event )
-    local sceneGroup = self.view
-
-    if myImage then
-        myImage:removeSelf()
-        myImage = nil
-    end
-end
+function scene:destroy( ) end
 
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
