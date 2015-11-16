@@ -9,7 +9,7 @@ require( "setup" ) require( "cache" )
 function scene:create( event )
     local sceneGroup = self.view
 
-    local background = setupBackground("images/background3.jpg");
+    local background = setupBackground("images/lousa.png");
     sceneGroup:insert(background)
 
     local titleGame = display.newText("Math Ninja",  display.contentWidth  * 0.5, 190, native.systemFontBold, 70)
@@ -27,15 +27,15 @@ function scene:create( event )
     sceneGroup:insert(back)
 
     function back:tap(event)
-        composer.gotoScene( "menu" )
+        composer.gotoScene( "menu", {time=800, effect="crossFade"} )
     end
 
-    function credits:tap(event)
-        composer.gotoScene( "credits", {time=800, effect="crossFade"}  )
+    function credits:tap()
+        composer.gotoScene( "credits", {time=800, effect="crossFade"})
     end
 
-    function tutorial:tap(event)
-        composer.gotoScene( "tutorial", {time=800, effect="crossFade"}  )
+    function tutorial:tap()
+        composer.gotoScene( "tutorial", {time=800, effect="crossFade"})
     end
 
     credits:addEventListener("tap", credits)

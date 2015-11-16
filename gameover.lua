@@ -9,24 +9,42 @@ local scene = composer.newScene()
 function scene:create( event )
 	local sceneGroup = self.view
 
-	local background = setupBackground("images/background3.jpg");
+	local background = setupBackground("images/lousa.png");
 	sceneGroup:insert(background)
 
-    local titleGame = display.newText("Math Ninja",  display.contentWidth  * 0.5, display.contentHeight * 0.2, native.systemFontBold, 90)
-	sceneGroup:insert(titleGame)
+	local logo = display.newImage("images/mathninjalogo.png", display.contentWidth  * 0.5, 230)
+	logo.width = 300
+	logo.height = 180
+	sceneGroup:insert(logo)
 
-	local scores = composer.getVariable( "scores" )
-	local scores = display.newText("Scores: "..scores,  display.contentWidth  * 0.5, display.contentHeight * 0.4, native.systemFontBold, 50)
-	sceneGroup:insert(scores)
-
-	local playGame = display.newText("Jogar novamente",  display.contentWidth  * 0.5, display.contentHeight * 0.6, native.systemFontBold, 60)
+	local playGame = display.newImage("images/playagain.png", display.contentWidth  * 0.5, display.contentHeight * 0.75)
 	sceneGroup:insert(playGame)
 
-    function playGame:tap(event)
+	local scoresImage = display.newImage("images/scores.png", display.contentWidth  * 0.5, display.contentHeight * 0.55)
+	sceneGroup:insert(scoresImage)
+
+	local scores = composer.getVariable( "scores" )
+
+	print( native.systemFont)
+
+	local scores = display.newText(scores,  display.contentWidth  * 0.56, display.contentHeight * 0.55, "TrashHand", 80)
+	sceneGroup:insert(scores)
+
+	local back = display.newImage("images/back.png", display.contentWidth  * 0.87, display.contentHeight * 0.75)
+	back.width = 180
+	back.height = 120
+	sceneGroup:insert(back)
+
+	function back:tap(event)
+		composer.gotoScene( "menu" )
+	end
+
+    function playGame:tap()
 		composer.gotoScene( "game" )
 	end
 
 	playGame:addEventListener("tap", playGame)
+	back:addEventListener("tap", back)
 end
 
 function scene:show( event )

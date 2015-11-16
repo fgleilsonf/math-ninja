@@ -112,7 +112,7 @@ local listQuestios = {}
 function scene:create()
     local sceneGroup = self.view
 
-    local background = setupBackground("images/background3.jpg");
+    local background = setupBackground("images/lousa.png");
     sceneGroup:insert(background)
 
     themeFromQuestio = composer.getVariable( "operation" )
@@ -298,6 +298,8 @@ function scene:create()
     function getRandomBall()
         local ballProp = avalBall[math.random(1, #avalBall)]
         local ball = display.newImage(ballProp.whole)
+        ball.width = 90
+        ball.height = 90
         ball.whole = ballProp.whole
         ball.top = ballProp.top
         ball.bottom = ballProp.bottom
@@ -307,7 +309,9 @@ function scene:create()
     end
 
     function getBomb()
-        local bomb = display.newImage( "images/bomb2.png")
+        local bomb = display.newImage( "images/bomb.png")
+        bomb.width = 140
+        bomb.height = 140
         return bomb
     end
 
@@ -392,9 +396,6 @@ function scene:create()
 
     function shootObject(type)
         local object = type == "ball" and getRandomBall() or getBomb()
-
-        object.width = 90
-        object.height = 90
 
         sceneGroup:insert(object)
 

@@ -4,57 +4,76 @@
 
 local composer = require( "composer" )
 local scene = composer.newScene()
-require( "setup" ) require( "cache" )
+require( "setup" ) require( "cache" ) require( "path_files" )
 
 function scene:create()
 	local sceneGroup = self.view
 
-    local background = setupBackground("images/background3.jpg");
+    local background = setupBackground("images/lousa.png");
     sceneGroup:insert(background)
+
+    local logo = display.newImage("images/mathninjalogo.png", display.contentWidth  * 0.5, 230)
+    logo.width = 350
+    logo.height = 220
+    sceneGroup:insert(logo)
 
 	local ball = {}
 	local radius = 160
 
-    ball[1] = display.newImage("images/ball_green.png", display.contentWidth  * 0.2, display.contentHeight * 0.5)
+    local optionHeight = display.contentHeight * 0.56
+
+    local images = getImage()
+
+    ball[1] = display.newImage(images.PATH_IMAGE_CIRCLE_, display.contentWidth  * 0.2, optionHeight)
     ball[1].width = radius
     ball[1].height = radius
     sceneGroup:insert(ball[1])
 
-    ball[2] = display.newImage("images/ball_green.png", display.contentWidth  * 0.4, display.contentHeight * 0.5)
+    ball[2] = display.newImage(images.PATH_IMAGE_CIRCLE_, display.contentWidth  * 0.4, optionHeight)
     ball[2].width = radius
     ball[2].height = radius
     sceneGroup:insert(ball[2])
 
-    ball[3] = display.newImage("images/ball_green.png", display.contentWidth  * 0.6, display.contentHeight * 0.5)
+    ball[3] = display.newImage(images.PATH_IMAGE_CIRCLE_, display.contentWidth  * 0.6, optionHeight)
     ball[3].width = radius
     ball[3].height = radius
     sceneGroup:insert(ball[3])
 
-	ball[4] = display.newImage("images/ball_green.png", display.contentWidth  * 0.8, display.contentHeight * 0.5)
+	ball[4] = display.newImage(images.PATH_IMAGE_CIRCLE_, display.contentWidth  * 0.8, optionHeight)
 	ball[4].width = radius
 	ball[4].height = radius
 	sceneGroup:insert(ball[4])
 
-	local rootSquare = display.newImage("images/raiz2.png", ball[1].x, display.contentHeight * 0.5)
-    rootSquare.width = 100
-    rootSquare.height = 100
+	local rootSquare = display.newImage("images/square.png", ball[1].x, optionHeight )
+    rootSquare.width = 80
+    rootSquare.height = 80
     sceneGroup:insert(rootSquare)
 
-	local operators = display.newImage("images/operators.png", ball[2].x, display.contentHeight * 0.5)
+	local operators = display.newImage("images/calc.png", ball[2].x, optionHeight)
 	operators.width = 80
 	operators.height = 80
 	sceneGroup:insert(operators)
 
-	local numberSquare = display.newText("X²", ball[3].x + 10, display.contentHeight * 0.5, native.systemFontBold, 70)
-    numberSquare:setTextColor(0, 0, 0)
+	local numberSquare = display.newImage("images/x2.png", ball[3].x, optionHeight)
+    numberSquare.width = 80
+    numberSquare.height = 80
 	sceneGroup:insert(numberSquare)
 
-    local fatorial = display.newText("n!", ball[4].x, display.contentHeight * 0.5, native.systemFontBold, 70)
-    fatorial:setTextColor(0, 0, 0)
+    local fatorial = display.newImage("images/n.png", ball[4].x, optionHeight)
+    fatorial.width = 80
+    fatorial.height = 80
     sceneGroup:insert(fatorial)
 
-    local titleGame = display.newText("Math Ninja",  display.contentWidth  * 0.5, 190, native.systemFontBold, 70)
-	sceneGroup:insert(titleGame)
+    local menu = display.newImage("images/menu.png", display.contentWidth  * 0.8, display.contentHeight * 0.77)
+    menu.height = 120
+    sceneGroup:insert(menu)
+
+    local recordeImage = display.newImage("images/recorde.png", 210, display.contentHeight * 0.77)
+    recordeImage.height = 120
+    sceneGroup:insert(recordeImage)
+
+    local recorde = display.newText(getPontuacao(), 300, display.contentHeight * 0.76, "TrashHand", 60)
+    sceneGroup:insert(recorde)
 
     function rootSquare:tap()
 		composer.gotoScene( "root-square" )
@@ -76,14 +95,6 @@ function scene:create()
 	operators:addEventListener("tap", operators)
 	numberSquare:addEventListener("tap", numberSquare)
     fatorial:addEventListener("tap", fatorial)
-
-	local pontuacao = getPontuacao()
-
-	local recorde = display.newText("Recorde: "..pontuacao, 170, display.contentHeight * 0.77, native.systemFontBold, 40)
-	sceneGroup:insert(recorde)
-
-    local menu = display.newText("<< Menu >>", display.contentWidth  * 0.82, display.contentHeight * 0.77, native.systemFontBold, 40)
-    sceneGroup:insert(menu)
 
     function menu:tap()
         composer.gotoScene( "options-menu", {time=800, effect="crossFade"} )
