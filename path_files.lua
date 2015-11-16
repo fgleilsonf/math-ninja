@@ -14,15 +14,20 @@ function getImage()
     return {
         PATH_IMAGE_CIRCLE_ = PATH_BASE_IMAGES_.."circle.png",
         PATH_IMAGE_BALL_RED_ = PATH_BASE_IMAGES_.."redball.png",
-        PATH_IMAGE_BALL_RED_TOP_ = PATH_BASE_IMAGES_.."ball_red_top.png",
-        PATH_IMAGE_BALL_RED_BOTTOM_ = PATH_BASE_IMAGES_.."ball_red_bottom.png",
+        PATH_IMAGE_BALL_RED_TOP_ = PATH_BASE_IMAGES_.."redball_top.png",
+        PATH_IMAGE_BALL_RED_BOTTOM_ = PATH_BASE_IMAGES_.."redball_bottom.png",
         PATH_IMAGE_BALL_BLUE_ = PATH_BASE_IMAGES_.."blueball.png",
-        PATH_IMAGE_BALL_BLUE_TOP_ = PATH_BASE_IMAGES_.."ball_blue_top.png",
-        PATH_IMAGE_BALL_BLUE_BOTTOM_ = PATH_BASE_IMAGES_.."ball_blue_bottom.png",
+        PATH_IMAGE_BALL_BLUE_TOP_ = PATH_BASE_IMAGES_.."blueball_top.png",
+        PATH_IMAGE_BALL_BLUE_BOTTOM_ = PATH_BASE_IMAGES_.."blueball_bottom.png",
         PATH_IMAGE_BALL_YELLOW_ = PATH_BASE_IMAGES_.."yellowball.png",
-        PATH_IMAGE_BALL_YELLOW_TOP_ = PATH_BASE_IMAGES_.."ball_yellow_top.png",
-        PATH_IMAGE_BALL_YELLOW_BOTTOM_ = PATH_BASE_IMAGES_.."ball_yellow_bottom.png",
-        PATH_IMAGE_LIFE_ = PATH_BASE_IMAGES_.."life.png"
+        PATH_IMAGE_BALL_YELLOW_TOP_ = PATH_BASE_IMAGES_.."yellowball_top.png",
+        PATH_IMAGE_BALL_YELLOW_BOTTOM_ = PATH_BASE_IMAGES_.."yellowball_bottom.png",
+        PATH_IMAGE_LIFE_ = PATH_BASE_IMAGES_.."life.png",
+        PATH_IMAGE_BACKGROUND_ = PATH_BASE_IMAGES_.."lousa.png",
+        PATH_IMAGE_BACK_ = PATH_BASE_IMAGES_.."back.png",
+        PATH_IMAGE_LOGO_ = PATH_BASE_IMAGES_.."mathninjalogo.png",
+        PATH_IMAGE_CREDITS_ = PATH_BASE_IMAGES_.."creditos.png",
+        PATH_IMAGE_TUTORIAL_ = PATH_BASE_IMAGES_.."tutorial.png"
     }
 end
 

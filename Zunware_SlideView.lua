@@ -29,8 +29,8 @@ function new(imageSet)
 
 		slider:insert(p)
 
-		p.width = (xMax - xMin) - 120
-		p.height = (yMax - yMin) - 200
+		p.width = (xMax - xMin) - 200
+		p.height = (yMax - yMin) - 250
 		p.x = _W * 0.5
 		p.y = _H * 0.5
 
@@ -41,7 +41,7 @@ function new(imageSet)
 			p.x = screenW*.5
 		end
 		-- Center height:
-		p.y = h*.5
+		p.y = (h*.5) - 20
 		slider.images[i] = p
 	end -- Create Images
 

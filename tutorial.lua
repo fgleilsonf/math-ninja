@@ -4,20 +4,15 @@
 
 local composer = require( "composer" )
 local slideView = require("Zunware_SlideView")
+require( "setup" )
 
 local scene = composer.newScene()
 
-local centerWidth = display.contentWidth / 2
-
-local xMin = display.screenOriginX
-local yMin = display.screenOriginY
-local xMax = display.contentWidth - display.screenOriginX
-local yMax = display.contentHeight - display.screenOriginY
-local _W = display.contentWidth
-local _H = display.contentHeight
-
 function scene:create( )
     local sceneGroup = self.view
+
+    local background = setupBackground("images/lousa.png");
+    sceneGroup:insert(background)
 
     local images = {
         "images/tutorial/menu.png",
@@ -27,12 +22,12 @@ function scene:create( )
     local slideImages = slideView.new(images, nil)
     sceneGroup:insert(slideImages)
 
-    local back = display.newImage("images/back.png", display.contentWidth  * 0.9, display.contentHeight * 0.8)
-    back.width = 70
-    back.height = 70
+    local back = display.newImage("images/back.png", display.contentWidth  * 0.87, display.contentHeight * 0.79)
+    back.width = 170
+    back.height = 100
     sceneGroup:insert(back)
 
-    local titleGame = display.newText("Imagens do Jogo",  display.contentWidth  * 0.5, 140, native.systemFontBold, 50)
+    local titleGame = display.newText("Tutorial",  display.contentWidth  * 0.5, 150, native.systemFontBold, 50)
     sceneGroup:insert(titleGame)
 
     function back:tap(event)
@@ -42,29 +37,9 @@ function scene:create( )
     back:addEventListener("tap", back)
 end 
 
-function scene:show( event )
-
-    local sceneGroup = self.view
-    local phase = event.phase
-
-    if ( phase == "will" ) then
-    elseif ( phase == "did" ) then
-    end
-end
-
-function scene:hide( event )
-
-    local sceneGroup = self.view
-    local phase = event.phase
-
-    if ( event.phase == "will" ) then
-    elseif ( phase == "did" ) then
-    end
-end
-
-function scene:destroy( event )
-    local sceneGroup = self.view
-end
+function scene:show() end
+function scene:hide() end
+function scene:destroy() end
 
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )

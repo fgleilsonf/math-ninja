@@ -1,11 +1,11 @@
 
-require ("physics")
+require ( "physics" )
 require( "setup" )
 require( "constants" )
 require( "cache" )
 require( "path_files" )
 
-local ui = require("ui")
+local ui = require( "ui" )
 local composer = require( "composer" )
 local scene = composer.newScene()
 
@@ -230,6 +230,9 @@ function scene:create()
 
         half.x = newPoint.x + ball.x
         half.y = newPoint.y + ball.y
+
+        half.width = 120
+        half.height = 60
 
         sceneGroup:insert(half)
 

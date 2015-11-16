@@ -6,21 +6,22 @@ local composer = require( "composer" )
 local scene = composer.newScene()
 require( "setup" ) require( "cache" ) require( "path_files" )
 
+local images = getImage()
+
 function scene:create()
 	local sceneGroup = self.view
 
-    local background = setupBackground("images/lousa.png");
+    local background = setupBackground(images.PATH_IMAGE_BACKGROUND_);
     sceneGroup:insert(background)
 
-    local logo = display.newImage("images/mathninjalogo.png", display.contentWidth  * 0.5, 230)
+    local logo = display.newImage(images.PATH_IMAGE_LOGO_, display.contentWidth  * 0.5, 230)
     logo.width = 350
     logo.height = 220
     sceneGroup:insert(logo)
 
 	local ball = {}
-	local radius = 160
-
-    local optionHeight = display.contentHeight * 0.56
+	local radius = 150
+    local optionHeight = display.contentHeight * 0.57
 
     local images = getImage()
 
@@ -64,15 +65,15 @@ function scene:create()
     fatorial.height = 80
     sceneGroup:insert(fatorial)
 
-    local menu = display.newImage("images/menu.png", display.contentWidth  * 0.8, display.contentHeight * 0.77)
-    menu.height = 120
+    local menu = display.newImage("images/menu.png", display.contentWidth  * 0.8, display.contentHeight * 0.78)
+    menu.height = 110
     sceneGroup:insert(menu)
 
-    local recordeImage = display.newImage("images/recorde.png", 210, display.contentHeight * 0.77)
-    recordeImage.height = 120
+    local recordeImage = display.newImage("images/recorde.png", 210, display.contentHeight * 0.78)
+    recordeImage.height = 110
     sceneGroup:insert(recordeImage)
 
-    local recorde = display.newText(getPontuacao(), 300, display.contentHeight * 0.76, "TrashHand", 60)
+    local recorde = display.newText(getPontuacao(), 300, display.contentHeight * 0.77, "TrashHand", 50)
     sceneGroup:insert(recorde)
 
     function rootSquare:tap()

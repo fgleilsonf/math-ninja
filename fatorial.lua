@@ -2,16 +2,21 @@
 	@author Gleilson Ferreira
 ]]
 
+require( "setup" )
+require( "glossario" )
+require( "path_files" )
+
 local composer = require( "composer" )
-require( "setup" ) require( "glossario" )
 local scene = composer.newScene()
+
+local images = getImage()
 
 local textBox
 
 function scene:create( )
     local sceneGroup = self.view
 
-    local background = setupBackground("images/background3.jpg");
+    local background = setupBackground(images.PATH_IMAGE_BACKGROUND_);
     sceneGroup:insert(background)
 
     local titleGame = display.newText("Fatorial",  display.contentWidth  * 0.5, 170, native.systemFontBold, 45)
@@ -23,7 +28,7 @@ function scene:create( )
     textBox.size= 25
     sceneGroup:insert(textBox)
 
-    local back = display.newImage("images/back.png", display.contentWidth  * 0.9, display.contentHeight * 0.75)
+    local back = display.newImage(images.PATH_IMAGE_BACK_, display.contentWidth  * 0.9, display.contentHeight * 0.75)
     back.width = 70
     back.height = 70
     sceneGroup:insert(back)
