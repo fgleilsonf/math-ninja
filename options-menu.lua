@@ -4,12 +4,13 @@
 
 require( "setup" )
 require( "cache" )
+
 local composer = require( "composer" )
 local scene = composer.newScene()
 
 local images = getImage()
 
-function scene:create( event )
+function scene:create()
     local sceneGroup = self.view
 
     local background = setupBackground(images.PATH_IMAGE_BACKGROUND_);
@@ -48,11 +49,9 @@ function scene:create( event )
     back:addEventListener("tap", back)
 end
 
-function scene:show( event ) end
-
-function scene:hide( event ) end
-
-function scene:destroy( event ) end
+function scene:show() end
+function scene:hide() end
+function scene:destroy() end
 
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )

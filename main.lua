@@ -5,4 +5,4 @@ display.setStatusBar (display.HiddenStatusBar)
 
 local composer = require( "composer" )
 
-composer.gotoScene( "menu", {time=800, effect="crossFade"} )
+composer.gotoScene( "root-square", {time=800, effect="crossFade"} )
