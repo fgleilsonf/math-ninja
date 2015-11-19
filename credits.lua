@@ -4,6 +4,7 @@
 
 require( "setup" )
 require( "glossario" )
+require( "path_files" )
 
 local composer = require( "composer" )
 local scene = composer.newScene()
@@ -26,9 +27,9 @@ function scene:create( )
     textBox.size= 30
     sceneGroup:insert(textBox)
 
-    local back = display.newImage(images.PATH_IMAGE_BACK_, display.contentWidth  * 0.9, display.contentHeight * 0.75)
-    back.width = 70
-    back.height = 70
+    local back = display.newImage(images.PATH_IMAGE_BACK_, display.contentWidth  * 0.87, display.contentHeight * 0.75)
+    back.width = 180
+    back.height = 120
     sceneGroup:insert(back)
 
     function back:tap()

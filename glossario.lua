@@ -21,7 +21,7 @@ function getGlossario()
         FOR_OPERATIONS = ""..
                 " X   :  Multiplicação\n"..
                 " /    :  Divisão\n"..
-                "+    :  Soma\n"..
+                " +    :  Soma\n"..
                 " -    :  Subtração\n",
 
         ROOT_SQUARE = ""..
