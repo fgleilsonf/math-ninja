@@ -1,7 +1,6 @@
 function getGlossario()
     return {
         CREDITS = ""..
-                "                  *** Projeto de Estágio 1 FA7 ***\n"..
                 " Icones e imagens: https://www.iconfinder.com/\n"..
                 " Corona API documentação: https://docs.coronalabs.com/\n"..
                 " Projeto base: https://github.com/germc/Samurai-Fruit\n",
