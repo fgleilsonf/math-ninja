@@ -114,6 +114,8 @@ local drawSlashLine
 local soundSuccess = audio.loadSound("sounds/success.wav")
 local soundError = audio.loadSound("sounds/success.wav")
 
+local questionToResponse
+
 function scene:create()
     local sceneGroup = self.view
 
@@ -260,7 +262,7 @@ function scene:create()
     initLife()
     initQuestions()
 
-    local questionToResponse = display.newText(" ? = ?",  150, 170, native.systemFontBold, 50)
+    questionToResponse = display.newText(" ? = ?",  150, 170, native.systemFontBold, 50)
     questionToResponse:setTextColor(255, 255, 255)
     sceneGroup:insert(questionToResponse)
 
@@ -371,13 +373,19 @@ function scene:create()
 
     function chopBall(ball)
         if (colorBallWithResponse == ball.color) then
-            audio.play(soundSuccess)
+            transition.fadeOut( questionToResponse, { time = 1000 } )
+
+            audio.play(soundSuccess, {
+                duration = 1000,
+                onComplete = function()
+                    createOtherQuestion()
+                end
+            })
 
             scores = scores + 1
             pontuacaoAtual.text = scores
 
             composer.setVariable( "scores", scores )
-            createOtherQuestion()
         else
             loseLife()
         end
@@ -393,8 +401,22 @@ function scene:create()
     end
 
     function getRandomBall()
-        local ballProp = avalBall[math.random(1, #avalBall)]
-        local ball = display.newImage(ballProp.whole)
+
+        local ballProp
+        local ball
+        if (timeRemainingToRespond < 2) then
+            local i
+            for i = 1, #avalBall do
+                if (avalBall[i].color == colorBallWithResponse) then
+                    ballProp = avalBall[i]
+                    ball = display.newImage(ballProp.whole)
+                end
+            end
+        else
+            ballProp = avalBall[math.random(1, #avalBall)]
+            ball = display.newImage(ballProp.whole)
+        end
+
         ball.width = 90
         ball.height = 90
         ball.whole = ballProp.whole
@@ -536,6 +558,9 @@ function scene:create()
         table.insert(listQuestios, dataQuestion)
 
         questionToResponse.text = dataQuestion.question
+
+        transition.fadeIn( questionToResponse, { time=1000 } )
+
         colorBallWithResponse = ball[position].color
 
         timeRemainingToRespond = 10
