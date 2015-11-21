@@ -17,7 +17,7 @@ Math Ninja é um jogo para dispositivos móveis. Inspirado no fruit ninja tem o 
 
 # Objetivo Geral
 
-* Fazer com que o jogador aprender e realizar cálculos de forma rápida
+* Fazer com que o jogador aprenda e realize cálculos de forma rápida
 
 # Objetivos Específicos
 
@@ -26,8 +26,13 @@ Math Ninja é um jogo para dispositivos móveis. Inspirado no fruit ninja tem o 
 * Acertar a pengunta antes do tempo esgotar 
 
 # Regras do Jogo
+![math-ninja](images/bomb.png)
 * Ao destruir a bomba o jogador perderá o jogo.
-* A cada pergunta uma dessas 3 bolas contém a resposta.  
+![math-ninja](images/ballblue.png)
+![math-ninja](images/ballred.png)
+![math-ninja](images/ballyellow.png)
+* A cada pergunta uma dessas 3 bolas contém a resposta.
+![math-ninja](images/alarm_clock.png)
 * O jogador possui 10 segundos para responder a questão, caso não responda o jogador perderá 1 uma vida 
 
 # Tecnologias Utilizadas
