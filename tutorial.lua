@@ -25,13 +25,15 @@ local _W = display.contentWidth
 local _H = display.contentHeight
 
 local circle = {}
+local ball = {}
+local imagePath = getImage()
 
 local titles = {
     "Bem vindo ao Math Ninja",
     "Escolha um tema",
     "Estude o tema, teste seu aprendizado",
-    "Calcule a resposta e corte a bola",
-    "Avalie e der sua nota"
+    "Realize o calcule",
+    "Corte a bola que possui a resposta certa"
 }
 
 function scene:create( )
@@ -207,7 +209,9 @@ function scene:create( )
                 self.images[num-1].x = (screenW * 0.5 + pad) * -1
             end
 
+            visibleCircles(false)
             clearCircles()
+            circle[num].isVisible = true
             circle[num]:setFillColor( 0, 1, 0, 1 )
 
             pular.isVisible = (num ~= #self.images)
@@ -241,8 +245,6 @@ function scene:create( )
 
     end
 
-    local imagePath = getImage()
-
     local background = setupBackground(imagePath.PATH_IMAGE_BACKGROUND_);
     sceneGroup:insert(background)
 
@@ -250,16 +252,32 @@ function scene:create( )
     sceneGroup:insert(titleImage)
 
     local images = {
-        "images/tutorial/game.png",
-        "images/tutorial/menu.png",
-        "images/tutorial/game.png",
-        "images/tutorial/menu.png",
-        "images/tutorial/game.png"
+        "images/tutorial/1.png",
+        "images/tutorial/2.png",
+        "images/tutorial/3.png",
+        "images/tutorial/4.png",
+        "images/tutorial/5.png"
     }
 
     local slideImages = new(images, nil)
     slideImages.strokeWidth = 50
     sceneGroup:insert(slideImages)
+
+    local starHorizontalBaixo = display.newLine( 977, 522, 50, 522)
+    starHorizontalBaixo.strokeWidth = 5
+    sceneGroup:insert(starHorizontalBaixo)
+
+    local starHorizontalCima = display.newLine( 977, 195, 50, 195 )
+    starHorizontalCima.strokeWidth = 5
+    sceneGroup:insert(starHorizontalCima)
+
+    local starVerticalLeft = display.newLine( 47, 193, 47, 525 )
+    starVerticalLeft.strokeWidth = 5
+    sceneGroup:insert(starVerticalLeft)
+
+    local starVerticalRight = display.newLine( 974, 198, 974, 519 )
+    starVerticalRight.strokeWidth = 5
+    sceneGroup:insert(starVerticalRight)
 
     pular = display.newImage("images/pular.png", 160, display.contentHeight - 170)
     pular.width = 280
@@ -303,6 +321,32 @@ function scene:create( )
     circle[4] = display.newCircle( display.contentWidth  * 0.55, display.contentHeight - 170, 20 )
     circle[5] = display.newCircle( display.contentWidth  * 0.6, display.contentHeight - 170, 20 )
 
+    local radius = 40
+    ball[1] = display.newImage(imagePath.PATH_IMAGE_CIRCLE_, display.contentWidth  * 0.4, display.contentHeight - 170)
+    ball[1].width = radius
+    ball[1].height = radius
+    sceneGroup:insert(ball[1])
+
+    ball[1] = display.newImage(imagePath.PATH_IMAGE_CIRCLE_, display.contentWidth  * 0.45, display.contentHeight - 170)
+    ball[1].width = radius
+    ball[1].height = radius
+    sceneGroup:insert(ball[1])
+
+    ball[1] = display.newImage(imagePath.PATH_IMAGE_CIRCLE_, display.contentWidth  * 0.5, display.contentHeight - 170)
+    ball[1].width = radius
+    ball[1].height = radius
+    sceneGroup:insert(ball[1])
+
+    ball[1] = display.newImage(imagePath.PATH_IMAGE_CIRCLE_, display.contentWidth  * 0.55, display.contentHeight - 170)
+    ball[1].width = radius
+    ball[1].height = radius
+    sceneGroup:insert(ball[1])
+
+    ball[1] = display.newImage(imagePath.PATH_IMAGE_CIRCLE_, display.contentWidth  * 0.6, display.contentHeight - 170)
+    ball[1].width = radius
+    ball[1].height = radius
+    sceneGroup:insert(ball[1])
+
     sceneGroup:insert(circle[2])
     sceneGroup:insert(circle[3])
     sceneGroup:insert(circle[4])
@@ -314,6 +358,17 @@ function scene:create( )
             circle[i]:setFillColor( 1, 1, 1, 1 )
         end
     end
+
+    function visibleCircles(flag)
+        local i
+        for i = 1, #circle do
+            circle[i].isVisible = flag
+        end
+    end
+
+    visibleCircles(false)
+
+    circle[1].isVisible = true
 end 
 
 function scene:show() end
