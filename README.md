@@ -1,9 +1,9 @@
 # Math Ninja
 Desenvolvido para Trabalho de Estágio 1 - FA7
-![math-ninja](images/mathninjalogo.png)
+![Math Ninja](images/mathninjalogo.png)
 
 ## Demo
-![math-ninja](images/tutorial/game.png)
+![Demonstração](images/tutorial/game.png)
 
 ## Sumário
 
@@ -26,14 +26,14 @@ Math Ninja é um jogo para dispositivos móveis. Inspirado no fruit ninja tem o 
 * Acertar a pengunta antes do tempo esgotar 
 
 # Regras do Jogo
-![math-ninja](images/bomb.png)
 * Ao destruir a bomba o jogador perderá o jogo.
-![math-ninja](images/blueball.png)
-![math-ninja](images/redball.png)
-![math-ninja](images/yellowball.png)
+![Bomba](images/bomb.png)
 * A cada pergunta uma dessas 3 bolas contém a resposta.
-![math-ninja](images/alarm_clock.png)
-* O jogador possui 10 segundos para responder a questão, caso não responda o jogador perderá 1 uma vida 
+![Bola Azul](images/blueball.png)
+![Bola Vermelha](images/redball.png)
+![Bola Amarela](images/yellowball.png)
+* O jogador possui 10 segundos para responder a questão, caso não responda o jogador perderá 1 uma vida
+ ![math-ninja](images/alarm_clock.png)
 
 # Tecnologias Utilizadas
 
