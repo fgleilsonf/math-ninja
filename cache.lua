@@ -2,6 +2,7 @@ local sqlite3 = require( "sqlite3" )
 
 local pontuacao = 0
 local NAME_KEY_PONTUACAO_ = 'pontuacao'
+local NAME_KEY_FIRST_ACCESS_ = 'has_first_access'
 
 local path = system.pathForFile( "math-ninja.db", system.DocumentsDirectory )
 local db = sqlite3.open( path )
@@ -25,7 +26,7 @@ local function deleteByKey( key )
 end
 
 local function getByKey( key )
-    for row in db:nrows("SELECT * FROM settings WHERE key = '" .. NAME_KEY_PONTUACAO_ .. "'") do
+    for row in db:nrows("SELECT * FROM settings WHERE key = '" .. key .. "'") do
         return row.value
     end
 
@@ -40,12 +41,28 @@ function setPontuacao( pontuacao )
     db:exec( tablefill )
 end
 
+function setFirstAccess(flag)
+    deleteByKey( NAME_KEY_FIRST_ACCESS_ )
+
+    local tablefill = [[INSERT INTO settings VALUES (null, 'has_first_access', ']].. flag ..[['); ]]
+
+    db:exec( tablefill )
+end
+
 function unsetPontucao()
     deleteByKey( NAME_KEY_PONTUACAO_ )
 end
 
+function unsetFirstAccess()
+    deleteByKey( NAME_KEY_FIRST_ACCESS_ )
+end
+
 function getPontuacao()
     return getByKey( NAME_KEY_PONTUACAO_)
+end
+
+function hasFirstAccess()
+    return getByKey( NAME_KEY_FIRST_ACCESS_)
 end
 
 Runtime:addEventListener( "system", onSystemEvent )

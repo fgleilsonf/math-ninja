@@ -16,18 +16,31 @@ function scene:create( )
     local background = setupBackground(images.PATH_IMAGE_BACKGROUND_);
     sceneGroup:insert(background)
 
-    local titleGame = display.newText("4 - Operações",  display.contentWidth  * 0.5, 170, "TrashHand", 90)
+    local titleGame = display.newText("4 - Operações",  display.contentWidth  * 0.5, 170, "Verdana", 70)
     sceneGroup:insert(titleGame)
 
-    local definition = display.newText(getGlossario().FOR_OPERATIONS, 510, 410, display.contentWidth - 140, 300, "TrashHand", 50 )
-    sceneGroup:insert(definition)
+    local info = {}
+
+    info[1] = display.newText(" X : Multiplicação", 510, 410, display.contentWidth - 140, 300, "Verdana", 30 )
+    sceneGroup:insert(info[1])
+
+    info[1] = display.newText(" / : Divisão", 510, 480, display.contentWidth - 140, 300, "Verdana", 30 )
+    sceneGroup:insert(info[1])
+
+    info[4] = display.newText("+ : Soma", 510, 550, display.contentWidth - 140, 300, "Verdana", 30 )
+    sceneGroup:insert(info[4])
+
+    info[5] = display.newText(" - : Subtração", 510, 620, display.contentWidth - 140, 300, "Verdana", 30 )
+    sceneGroup:insert(info[5])
 
     local back = display.newImage(images.PATH_IMAGE_BACK_, display.contentWidth  * 0.87, display.contentHeight * 0.77)
     back.width = 180
     back.height = 120
     sceneGroup:insert(back)
 
-    local play = display.newText("<< Jogar >>", display.contentWidth  * 0.5, display.contentHeight * 0.75, native.systemFontBold, 45)
+    local play = display.newImage(images.PATH_IMAGE_JOGAR_, display.contentWidth  * 0.5, display.contentHeight * 0.77)
+    play.width = 240
+    play.height = 120
     sceneGroup:insert(play)
 
     function play:tap()

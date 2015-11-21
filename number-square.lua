@@ -27,7 +27,9 @@ function scene:create( )
     back.height = 120
     sceneGroup:insert(back)
 
-    local play = display.newText("<< Jogar >>", display.contentWidth  * 0.5, display.contentHeight * 0.75, native.systemFontBold, 45)
+    local play = display.newImage(images.PATH_IMAGE_JOGAR_, display.contentWidth  * 0.5, display.contentHeight * 0.77)
+    play.width = 240
+    play.height = 120
     sceneGroup:insert(play)
 
     function back:tap()

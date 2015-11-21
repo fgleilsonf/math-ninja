@@ -108,6 +108,11 @@ local splashSlideDistance = 50
 local colorBallWithResponse
 
 local listQuestios = {}
+local pontuacaoAtual = 0
+
+local drawSlashLine
+local soundSuccess = audio.loadSound("sounds/success.wav")
+local soundError = audio.loadSound("sounds/success.wav")
 
 function scene:create()
     local sceneGroup = self.view
@@ -115,7 +120,88 @@ function scene:create()
     local background = setupBackground("images/lousa.png");
     sceneGroup:insert(background)
 
+    local rootSquare = display.newImage("images/root-square.png", 60, 160)
+    rootSquare.width = 100
+    rootSquare.height = 80
+    rootSquare.isVisible = false
+    sceneGroup:insert(rootSquare)
+
     themeFromQuestio = composer.getVariable( "operation" )
+
+    function createQuestion()
+        if (themeFromQuestio == QUESTION_ABOUT_ROOT_SQUARE) then
+            local n1 = math.random(0, 20)
+            rootSquare.isVisible = true
+            local value = n1 * n1
+
+            return {
+                question = value .. " = ?",
+                result = n1
+            }
+        elseif (themeFromQuestio == QUESTION_ABOUT_OPERATIONS_4) then
+            local operator = math.random(1, 4)
+            local n1 = math.random(0, 9)
+            local n2 = math.random(0, 9)
+            local result = 0
+
+            local simboloOperator = operators[operator]
+            if (simboloOperator == operatorsSymbol.OPERATOR_DIVISION_) then
+                if (n2 == 0) then
+                    n2 = 1
+                elseif (n1 ~= 0 and math.fmod(n1, n2) ~= 0 ) then
+                    local divisoes = {
+                        {n1 = 9, n2 = 3},
+                        {n1 = 8, n2 = 4},
+                        {n1 = 8, n2 = 2},
+                        {n1 = 6, n2 = 3},
+                        {n1 = 6, n2 = 2},
+                        {n1 = 4, n2 = 2}
+                    }
+
+                    local divisao = math.random(1, #divisoes)
+                    n1 = divisoes[divisao].n1
+                    n2 = divisoes[divisao].n2
+                end
+                result = n1 / n2
+            elseif (simboloOperator == operatorsSymbol.OPERATOR_MULTIPLICATION_) then
+                result = n1 * n2
+            elseif (simboloOperator == operatorsSymbol.OPERATOR_SUBTRACTION_) then
+                result = n1 - n2
+            elseif (simboloOperator == operatorsSymbol.OPERATOR_SUM_) then
+                result = n1 + n2
+            end
+
+            return {
+                n1 = n1,
+                n2 = n2,
+                question = n1 .. " " .. simboloOperator .. " " .. n2 .. " = ?",
+                simboloOperator = simboloOperator,
+                result = result
+            }
+        elseif (themeFromQuestio == QUESTION_ABOUT_NUMBER_SQUARE) then
+            local n1 = math.random(0, 20)
+
+            return {
+                question = n1.."² = ?",
+                result =  (n1 * n1),
+            }
+        elseif (themeFromQuestio == QUESTION_ABOUT_FATORIAL) then
+            local n1 = math.random(0, 11)
+
+            function fat(n)
+                if n == 0 then
+                    return 1
+                else
+                    return n * fat(n - 1)
+                end
+            end
+
+            return {
+                question = n1.."! = ?",
+                result =  fat(n1),
+            }
+        end
+    end
 
     local ball = {}
     local lifes = {}
@@ -185,6 +271,9 @@ function scene:create()
 
     local timerTextQuestion = display.newText("10",  display.contentWidth * 0.52, 170, native.systemFontBold, 50)
     sceneGroup:insert(timerTextQuestion)
+
+    pontuacaoAtual = display.newText(scores,  display.contentWidth * 0.91, 230, native.systemFontBold, 50)
+    sceneGroup:insert(pontuacaoAtual)
 
     Runtime:addEventListener("touch", drawSlashLine)
 
@@ -257,11 +346,11 @@ function scene:create()
             setPontuacao(scores)
         end
 
+        Runtime:removeEventListener("touch", drawSlashLine)
         timer.cancel(responseTimer)
         timer.cancel(ballTimer)
         timer.cancel(bombTimer)
 
-        composer.setVariable( "scores", scores )
         composer.removeScene( "game" )
         composer.gotoScene( "gameover" )
     end
@@ -282,7 +371,12 @@ function scene:create()
 
     function chopBall(ball)
         if (colorBallWithResponse == ball.color) then
+            audio.play(soundSuccess)
+
             scores = scores + 1
+            pontuacaoAtual.text = scores
+
+            composer.setVariable( "scores", scores )
             createOtherQuestion()
         else
             loseLife()
@@ -455,6 +549,15 @@ function scene:create()
         local size = string.len(questions[0].text)
         local sizeX = 170
 
+        print(size)
+        if (size == 0) then
+            rootSquare.x = 130
+        elseif (size == 1) then
+            rootSquare.x = 75
+        else
+            rootSquare.x = 65
+        end
+
         if (size > 5) then
             sizeX = size * 20 + 80
         elseif (size == 3) then
@@ -490,80 +593,7 @@ function scene:create()
     ballTimer = timer.performWithDelay(ballShootingInterval, function(event) shootObject("ball") end, 0)
 end
 
-function createQuestion()
-    if (themeFromQuestio == QUESTION_ABOUT_ROOT_SQUARE) then
-        local n1 = math.random(0, 20)
-
-        return {
-            question = "Raiz ".. (n1 * n1) .. " = ?",
-            result = n1
-        }
-    elseif (themeFromQuestio == QUESTION_ABOUT_OPERATIONS_4) then
-        local operator = math.random(1, 4)
-        local n1 = math.random(0, 9)
-        local n2 = math.random(0, 9)
-        local result = 0
-
-        local simboloOperator = operators[operator]
-        if (simboloOperator == operatorsSymbol.OPERATOR_DIVISION_) then
-            if (n2 == 0) then
-                n2 = 1
-            elseif (n1 ~= 0 and math.fmod(n1, n2) ~= 0 ) then
-                local divisoes = {
-                    {n1 = 9, n2 = 3},
-                    {n1 = 8, n2 = 4},
-                    {n1 = 8, n2 = 2},
-                    {n1 = 6, n2 = 3},
-                    {n1 = 6, n2 = 2},
-                    {n1 = 4, n2 = 2}
-                }
-
-                local divisao = math.random(1, #divisoes)
-                n1 = divisoes[divisao].n1
-                n2 = divisoes[divisao].n2
-            end
-            result = n1 / n2
-        elseif (simboloOperator == operatorsSymbol.OPERATOR_MULTIPLICATION_) then
-            result = n1 * n2
-        elseif (simboloOperator == operatorsSymbol.OPERATOR_SUBTRACTION_) then
-            result = n1 - n2
-        elseif (simboloOperator == operatorsSymbol.OPERATOR_SUM_) then
-            result = n1 + n2
-        end
-
-        return {
-            n1 = n1,
-            n2 = n2,
-            question = n1 .. " " .. simboloOperator .. " " .. n2 .. " = ?",
-            simboloOperator = simboloOperator,
-            result = result
-        }
-    elseif (themeFromQuestio == QUESTION_ABOUT_NUMBER_SQUARE) then
-        local n1 = math.random(0, 20)
-
-        return {
-            question = n1.."² = ?",
-            result =  (n1 * n1),
-        }
-    elseif (themeFromQuestio == QUESTION_ABOUT_FATORIAL) then
-        local n1 = math.random(0, 11)
-
-        function fat(n)
-            if n == 0 then
-                return 1
-            else
-                return n * fat(n - 1)
-            end
-        end
-
-        return {
-            question = n1.."! = ?",
-            result =  fat(n1),
-        }
-    end
-end
-
-function drawSlashLine(event)
+drawSlashLine = function (event)
     if(endPoints ~= nil and endPoints[1] ~= nil) then
         local distance = math.sqrt(math.pow(event.x - endPoints[1].x, 2) + math.pow(event.y - endPoints[1].y, 2))
         if (distance > minDistanceForSlashSound and slashSoundEnabled == true) then
@@ -604,7 +634,9 @@ function drawSlashLine(event)
     end
 end
 
-function scene:show( ) end
+function scene:show( )
+    composer.setVariable( "scores", 0 )
+end
 function scene:hide( ) end
 function scene:destroy( ) end
 

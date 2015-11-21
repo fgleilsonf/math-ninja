@@ -2,30 +2,32 @@
 	@author Gleilson Ferreira
 ]]
 
-local composer = require( "composer" )
 require( "setup" )
+require("path_files")
+
+local composer = require( "composer" )
 local scene = composer.newScene()
 
-function scene:create( event )
+local imagesPath = getImage()
+
+function scene:create()
 	local sceneGroup = self.view
 
-	local background = setupBackground("images/lousa.png");
+	local background = setupBackground(imagesPath.PATH_IMAGE_BACKGROUND_);
 	sceneGroup:insert(background)
 
-	local logo = display.newImage("images/mathninjalogo.png", display.contentWidth  * 0.5, 230)
-	logo.width = 300
+	local logo = display.newImage(imagesPath.PATH_IMAGE_GAMEOVER_, display.contentWidth  * 0.5, 230)
+	logo.width = 400
 	logo.height = 180
 	sceneGroup:insert(logo)
 
-	local playGame = display.newImage("images/playagain.png", display.contentWidth  * 0.5, display.contentHeight * 0.75)
+	local playGame = display.newImage(imagesPath.PATH_IMAGE_JOGAR_NOVAMENTE_, display.contentWidth  * 0.5, display.contentHeight * 0.75)
 	sceneGroup:insert(playGame)
 
-	local scoresImage = display.newImage("images/scores.png", display.contentWidth  * 0.5, display.contentHeight * 0.55)
+	local scoresImage = display.newImage(imagesPath.PATH_IMAGE_SCORES_, display.contentWidth  * 0.5, display.contentHeight * 0.55)
 	sceneGroup:insert(scoresImage)
 
 	local scores = composer.getVariable( "scores" )
-
-	print( native.systemFont)
 
 	local scores = display.newText(scores,  display.contentWidth  * 0.56, display.contentHeight * 0.55, "TrashHand", 80)
 	sceneGroup:insert(scores)
@@ -35,7 +37,7 @@ function scene:create( event )
 	back.height = 120
 	sceneGroup:insert(back)
 
-	function back:tap(event)
+	function back:tap()
 		composer.gotoScene( "menu" )
 	end
 
@@ -47,32 +49,11 @@ function scene:create( event )
 	back:addEventListener("tap", back)
 end
 
-function scene:show( event )
-	local sceneGroup = self.view
-	local phase = event.phase
-	
-	if phase == "will" then
-	elseif phase == "did" then
-	end	
+function scene:show( ) end
+function scene:hide( )
+    composer.removeScene( "gameover" )
 end
-
-function scene:hide( event )
-	local sceneGroup = self.view
-	local phase = event.phase
-	
-	if event.phase == "will" then
-	elseif phase == "did" then
-	end	
-end
-
-function scene:destroy( event )
-	local sceneGroup = self.view
-	
-	if myImage then
-		myImage:removeSelf()
-		myImage = nil
-	end
-end
+function scene:destroy( ) end
 
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )

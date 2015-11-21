@@ -38,6 +38,7 @@ function scene:create( )
     local sceneGroup = self.view
 
     local proximo
+    local jogar
     local pular
     local titleImage
 
@@ -211,6 +212,9 @@ function scene:create( )
 
             pular.isVisible = (num ~= #self.images)
             titleImage.text = titles[num]
+
+            jogar.isVisible = (num == #self.images)
+            proximo.isVisible = (num ~= #self.images)
         end
 
         function slider:jumpToImage(num)
@@ -257,21 +261,52 @@ function scene:create( )
     slideImages.strokeWidth = 50
     sceneGroup:insert(slideImages)
 
-    pular = display.newImage("images/menu.png", 160, display.contentHeight - 170)
+    pular = display.newImage("images/pular.png", 160, display.contentHeight - 170)
+    pular.width = 280
     pular.height = 110
     sceneGroup:insert(pular)
 
-    proximo = display.newImage("images/back.png", display.contentWidth  * 0.87, display.contentHeight - 170)
-    proximo.height = 120
+    function pular:tap()
+        composer.gotoScene( "menu", {time=800, effect="crossFade"} )
+    end
+
+    pular:addEventListener("tap", pular)
+
+    jogar = display.newImage("images/jogar.png", display.contentWidth  * 0.86, display.contentHeight - 170)
+    jogar.height = 120
+    jogar.width = 270
+    jogar.isVisible = false
+    sceneGroup:insert(jogar)
+
+    function jogar:tap()
+        composer.gotoScene( "menu", {time=800, effect="crossFade"} )
+    end
+
+    jogar:addEventListener("tap", jogar)
+
+    proximo = display.newImage("images/proximo.png", display.contentWidth  * 0.87, display.contentHeight - 170)
+    proximo.height = 110
     sceneGroup:insert(proximo)
+
+    function proximo:tap()
+        slideImages:nextImage()
+    end
+
+    proximo:addEventListener("tap", proximo)
 
     circle[1] = display.newCircle( display.contentWidth  * 0.4, display.contentHeight - 170, 20 )
     circle[1]:setFillColor( 0, 1, 0, 1 )
+    sceneGroup:insert(circle[1])
 
     circle[2] = display.newCircle( display.contentWidth  * 0.45, display.contentHeight - 170, 20 )
     circle[3] = display.newCircle( display.contentWidth  * 0.5, display.contentHeight - 170, 20 )
     circle[4] = display.newCircle( display.contentWidth  * 0.55, display.contentHeight - 170, 20 )
     circle[5] = display.newCircle( display.contentWidth  * 0.6, display.contentHeight - 170, 20 )
+
+    sceneGroup:insert(circle[2])
+    sceneGroup:insert(circle[3])
+    sceneGroup:insert(circle[4])
+    sceneGroup:insert(circle[5])
 
     function clearCircles()
         local i
@@ -282,7 +317,11 @@ function scene:create( )
 end 
 
 function scene:show() end
-function scene:hide() end
+
+function scene:hide()
+    composer.removeScene( "tutorial" )
+end
+
 function scene:destroy() end
 
 scene:addEventListener( "create", scene )

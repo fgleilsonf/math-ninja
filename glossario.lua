@@ -1,9 +1,5 @@
 function getGlossario()
     return {
-        CREDITS = ""..
-                " Icones e imagens: https://www.iconfinder.com/\n"..
-                " Corona API documentação: https://docs.coronalabs.com/\n"..
-                " Projeto base: https://github.com/germc/Samurai-Fruit\n",
 
         FATORIAL = ""..
                 "       O fatorial de um número n (n pertence ao conjunto dos números naturais) "..
@@ -11,17 +7,13 @@ function getGlossario()
                 " excluindo o zero. A representação é feita pelo número fatorial seguido do sinal "..
                 " de exclamação, n!.\n"..
                 " Exemplo de número fatorial: 6! = 6 . 5 . 4 . 3 . 2 . 1 = 720\n"..
-                " Importante: n >= 0 (n maior ou igual a zero) , ou seja, não existe fatorial"..
-                " para números negativos...\n"..
-                " * O fatorial de 0 ( 0! ) é 1, pois o produto de número nenhum é 1."..
-                " O numero fatorial pode ser modificado para outras formas:"..
-                " n! = n . (n-1) . (n-2) . (n-3)!\n",
+                " * O fatorial de 0 ( 0! ) é 1, pois o produto de número nenhum é 1.",
 
         FOR_OPERATIONS = ""..
-                " X   :  Multiplicação\n"..
-                " /    :  Divisão\n"..
-                " +    :  Soma\n"..
-                " -    :  Subtração\n",
+                " X  :  Multiplicação\n"..
+                " /  :  Divisão\n"..
+                "+   :  Soma\n"..
+                " -  :  Subtração\n",
 
         ROOT_SQUARE = ""..
                 "       Determinar a raiz quadrada consiste em calcular o "..

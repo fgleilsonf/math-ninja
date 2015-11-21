@@ -27,7 +27,13 @@ function getImage()
         PATH_IMAGE_BACK_ = PATH_BASE_IMAGES_.."back.png",
         PATH_IMAGE_LOGO_ = PATH_BASE_IMAGES_.."mathninjalogo.png",
         PATH_IMAGE_CREDITS_ = PATH_BASE_IMAGES_.."creditos.png",
-        PATH_IMAGE_TUTORIAL_ = PATH_BASE_IMAGES_.."tutorial.png"
+        PATH_IMAGE_TUTORIAL_ = PATH_BASE_IMAGES_.."tutorial.png",
+        PATH_IMAGE_PROXIMO_ = PATH_BASE_IMAGES_.."proximo.png",
+        PATH_IMAGE_PULAR_ = PATH_BASE_IMAGES_.."pular.png",
+        PATH_IMAGE_JOGAR_ = PATH_BASE_IMAGES_.."jogar.png",
+        PATH_IMAGE_GAMEOVER_ = PATH_BASE_IMAGES_.."gameover.png",
+        PATH_IMAGE_JOGAR_NOVAMENTE_ = PATH_BASE_IMAGES_.."playagain.png",
+        PATH_IMAGE_SCORES_ = PATH_BASE_IMAGES_.."scores.png"
     }
 end
 
