@@ -1,51 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="972fe5f2-520e-45d2-888c-a30188fb9c06" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/1446400856_high_priority.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/Thumbs.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/background.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/ball_black.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/ball_blue.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/ball_blue_bottom.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/ball_blue_top.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/ball_green.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/ball_green_bottom.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/ball_green_top.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/ball_red.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/ball_red_bottom.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/ball_red_top.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/ball_yellow.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/bomb2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/cancel.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/close.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/delete_red.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/drop2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/error.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/face.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/help.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/info.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/next.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/raiz.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/raiz2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/splash1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/splash2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/splash3.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/startGame.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/stop.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/4-operations.lua" afterPath="$PROJECT_DIR$/4-operations.lua" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cache.lua" afterPath="$PROJECT_DIR$/cache.lua" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fatorial.lua" afterPath="$PROJECT_DIR$/fatorial.lua" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game.lua" afterPath="$PROJECT_DIR$/game.lua" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gameover.lua" afterPath="$PROJECT_DIR$/gameover.lua" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/glossario.lua" afterPath="$PROJECT_DIR$/glossario.lua" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.lua" afterPath="$PROJECT_DIR$/main.lua" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/number-square.lua" afterPath="$PROJECT_DIR$/number-square.lua" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/path_files.lua" afterPath="$PROJECT_DIR$/path_files.lua" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/root-square.lua" afterPath="$PROJECT_DIR$/root-square.lua" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tutorial.lua" afterPath="$PROJECT_DIR$/tutorial.lua" />
-    </list>
+    <list default="true" id="972fe5f2-520e-45d2-888c-a30188fb9c06" name="Default" comment="" />
     <ignored path="math-ninja.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -149,8 +105,8 @@
       <file leaf-file-name="main.lua" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3697479">
-              <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.23769508">
+              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -737,12 +693,12 @@
       <workItem from="1447954501422" duration="11281000" />
       <workItem from="1448009685992" duration="1239000" />
       <workItem from="1448054238734" duration="6545000" />
-      <workItem from="1448097163497" duration="10472000" />
+      <workItem from="1448097163497" duration="11583000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="142667000" />
+    <option name="totallyTimeSpent" value="143778000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2" y="29" width="1100" height="999" extended-state="0" />
@@ -1187,8 +1143,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3697479">
-          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.23769508">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
