@@ -59,11 +59,11 @@ function scene:create()
 	sceneGroup:insert(back)
 
 	function back:tap()
-		composer.gotoScene( "menu" )
+		composer.gotoScene( "menu", {time=800, effect="crossFade"} )
 	end
 
     function playGame:tap()
-		composer.gotoScene( "game" )
+		composer.gotoScene( "game", {time=800, effect="crossFade"} )
 	end
 
 	playGame:addEventListener("tap", playGame)

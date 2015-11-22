@@ -45,11 +45,11 @@ function scene:create( )
 
     function play:tap()
         composer.setVariable( "operation", 2 )
-        composer.gotoScene( "game" )
+        composer.gotoScene( "game", {time=800, effect="crossFade"} )
     end
 
     function back:tap()
-        composer.gotoScene( "menu" )
+        composer.gotoScene( "menu", {time=800, effect="crossFade"} )
     end
 
     back:addEventListener("tap", back)

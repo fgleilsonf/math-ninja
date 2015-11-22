@@ -77,19 +77,19 @@ function scene:create()
     sceneGroup:insert(recorde)
 
     function rootSquare:tap()
-		composer.gotoScene( "root-square" )
+		composer.gotoScene( "root-square", {time=800, effect="crossFade"} )
 	end
 
 	function operators:tap()
-		composer.gotoScene( "4-operations" )
+		composer.gotoScene( "4-operations", {time=800, effect="crossFade"} )
     end
 
 	function numberSquare:tap()
-		composer.gotoScene( "number-square" )
+		composer.gotoScene( "number-square", {time=800, effect="crossFade"} )
     end
 
     function fatorial:tap()
-        composer.gotoScene( "fatorial" )
+        composer.gotoScene( "fatorial", {time=800, effect="crossFade"} )
     end
 
 	rootSquare:addEventListener("tap", rootSquare)

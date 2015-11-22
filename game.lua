@@ -349,7 +349,7 @@ function scene:create()
         timer.cancel(bombTimer)
 
         composer.removeScene( "game" )
-        composer.gotoScene( "gameover" )
+        composer.gotoScene( "gameover", {time=800, effect="crossFade"} )
     end
 
     function loseLife()

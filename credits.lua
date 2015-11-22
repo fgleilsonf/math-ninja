@@ -81,7 +81,7 @@ function scene:create( )
     sceneGroup:insert(back)
 
     function back:tap()
-        composer.gotoScene( "options-menu" )
+        composer.gotoScene( "options-menu", {time=800, effect="crossFade"} )
     end
 
     back:addEventListener("tap", back)
