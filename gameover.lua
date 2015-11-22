@@ -16,10 +16,20 @@ function scene:create()
 	local background = setupBackground(imagesPath.PATH_IMAGE_BACKGROUND_);
 	sceneGroup:insert(background)
 
-	local logo = display.newImage(imagesPath.PATH_IMAGE_GAMEOVER_, display.contentWidth  * 0.5, 230)
-	logo.width = 400
-	logo.height = 180
-	sceneGroup:insert(logo)
+	local gameoverImage = display.newImage(imagesPath.PATH_IMAGE_GAMEOVER_, display.contentWidth  * 0.5, 230)
+	gameoverImage.width = 400
+	gameoverImage.height = 180
+	sceneGroup:insert(gameoverImage)
+
+	local trofeu = display.newImage("images/trofeu.png", display.contentWidth  * 0.85, 230)
+	trofeu.width = 200
+	trofeu.height = 200
+	trofeu.alpha = 0
+	sceneGroup:insert(trofeu)
+
+	local novoRecorde = display.newText("Novo recorde",  display.contentWidth  * 0.85, 330, "TrashHand", 40)
+	novoRecorde.alpha = 0
+	sceneGroup:insert(novoRecorde)
 
 	local playGame = display.newImage(imagesPath.PATH_IMAGE_JOGAR_NOVAMENTE_, display.contentWidth  * 0.5, display.contentHeight * 0.75)
 	sceneGroup:insert(playGame)
@@ -30,8 +40,14 @@ function scene:create()
 	local scores = composer.getVariable( "scores" )
 	local pontuacao = tonumber ( getPontuacao() )
 
-	if (scores > pontuacao) then
+	local soundGame = audio.loadSound("sounds/aplausos.mp3")
+
+	if (scores >= pontuacao) then
 		setPontuacao(scores)
+
+		transition.to(trofeu, {time = 4000, alpha = 1})
+		transition.to(novoRecorde, {time = 4000, alpha = 1})
+		audio.play(soundGame, {})
 	end
 
 	local scores = display.newText(scores,  display.contentWidth  * 0.56, display.contentHeight * 0.55, "TrashHand", 80)
