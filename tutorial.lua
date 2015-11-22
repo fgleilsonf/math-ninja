@@ -137,9 +137,7 @@ function scene:create( )
             return true
         end
 
-        function slider:setSlideNumber()
-            print("TODO: setSlideNumber")
-        end
+        function slider:setSlideNumber() end
 
         function slider:cancelTween()
             if self.prevTween then

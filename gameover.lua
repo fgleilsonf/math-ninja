@@ -42,7 +42,7 @@ function scene:create()
 
 	local soundGame = audio.loadSound("sounds/aplausos.mp3")
 
-	if (scores >= pontuacao) then
+	if (scores > pontuacao) then
 		setPontuacao(scores)
 
 		transition.to(trofeu, {time = 4000, alpha = 1})

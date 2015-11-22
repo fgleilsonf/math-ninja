@@ -353,11 +353,13 @@ function scene:create()
     end
 
     function loseLife()
-        lifes[countLife].fill.effect = "filter.monotone"
-        lifes[countLife].fill.effect.r = 0.5
-        lifes[countLife].fill.effect.g = 0.1
-        lifes[countLife].fill.effect.b = 0.2
-        lifes[countLife].fill.effect.a = 1
+        if (countLife > 0 and countLife < 4) then
+            lifes[countLife].fill.effect = "filter.monotone"
+            lifes[countLife].fill.effect.r = 0.5
+            lifes[countLife].fill.effect.g = 0.1
+            lifes[countLife].fill.effect.b = 0.2
+            lifes[countLife].fill.effect.a = 1
+        end
 
         countLife = countLife - 1
 
@@ -462,6 +464,7 @@ function scene:create()
     function explodeBomb(bomb, listener)
 
         bomb:removeEventListener("touch", listener)
+        Runtime:removeEventListener("touch", drawSlashLine)
 
         bomb.bodyType = "kinematic"
         bomb:setLinearVelocity(0,  0)
@@ -569,7 +572,6 @@ function scene:create()
         local size = string.len(questions[0].text)
         local sizeX = 170
 
-        print(size)
         if (size == 0) then
             rootSquare.x = 130
         elseif (size == 1) then
@@ -578,7 +580,7 @@ function scene:create()
             rootSquare.x = 65
         end
 
-        if (size > 5) then
+        if (size > 6) then
             sizeX = size * 20 + 80
         elseif (size == 3) then
             sizeX = 180
@@ -586,6 +588,8 @@ function scene:create()
             sizeX = 190
         elseif (size == 5) then
             sizeX = 200
+        elseif (size == 6) then
+            sizeX = 210
         end
 
         questions[0].x = sizeX
@@ -606,6 +610,15 @@ function scene:create()
             end
         end
     end
+
+    local parar = display.newImage("images/parar5.png", display.contentWidth  * 0.92, display.contentHeight * 0.75)
+    parar.width = 90
+    parar.height = 90
+    sceneGroup:insert(parar)
+
+    parar:addEventListener("tap", function()
+        gameOver();
+    end)
 
     createOtherQuestion()
 

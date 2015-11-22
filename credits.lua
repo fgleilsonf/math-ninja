@@ -29,6 +29,12 @@ function scene:create( )
     perfil.fill = paint
     sceneGroup:insert(perfil)
 
+    function perfil:tap()
+        system.openURL( "https://www.facebook.com/gleilson.gf" )
+    end
+
+    perfil:addEventListener("tap", perfil)
+
     local logo = display.newImage(images.PATH_IMAGE_LOGO_, display.contentWidth  * 0.8, 280)
     logo.width = 300
     logo.height = 200
@@ -42,6 +48,10 @@ function scene:create( )
     info[2] = display.newText("Github: https://github.com/fgleilsonf/", 500, display.contentHeight - 260, display.contentWidth - 140, 300, "Verdana", 30  )
     sceneGroup:insert(info[2])
 
+    info[2]:addEventListener("tap", function()
+        system.openURL( "https://github.com/fgleilsonf/math-ninja" )
+    end)
+
     info[3] = display.newText("Projeto: Math Ninja estágio 1 FA7", 500, display.contentHeight - 210, display.contentWidth - 140, 300, "Verdana", 30  )
     sceneGroup:insert(info[3])
 
@@ -51,8 +61,16 @@ function scene:create( )
     info[5] = display.newText("Corona API documentação: https://docs.coronalabs.com", 500, display.contentHeight - 160, display.contentWidth - 140, 300, "Verdana", 30  )
     sceneGroup:insert(info[5])
 
+    info[5]:addEventListener("tap", function()
+        system.openURL( "https://docs.coronalabs.com" )
+    end)
+
     info[6] = display.newText("Github projeto base: germc/Samurai-Fruit", 500, display.contentHeight - 110, display.contentWidth - 140, 300, "Verdana", 30  )
     sceneGroup:insert(info[6])
+
+    info[6]:addEventListener("tap", function()
+        system.openURL( "https://github.com/germc/Samurai-Fruit" )
+    end)
 
     info[7] = display.newText("Versão: 1.0", 500, display.contentHeight - 10, display.contentWidth - 140, 300, "Verdana", 30  )
     sceneGroup:insert(info[7])
