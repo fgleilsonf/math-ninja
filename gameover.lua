@@ -28,6 +28,11 @@ function scene:create()
 	sceneGroup:insert(scoresImage)
 
 	local scores = composer.getVariable( "scores" )
+	local pontuacao = tonumber ( getPontuacao() )
+
+	if (scores > pontuacao) then
+		setPontuacao(scores)
+	end
 
 	local scores = display.newText(scores,  display.contentWidth  * 0.56, display.contentHeight * 0.55, "TrashHand", 80)
 	sceneGroup:insert(scores)

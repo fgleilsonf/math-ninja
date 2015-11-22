@@ -105,7 +105,9 @@ function scene:create()
 end
 
 function scene:show() end
-function scene:hide() end
+function scene:hide()
+    composer.removeScene( "menu" )
+end
 function scene:destroy() end
 
 scene:addEventListener( "create", scene )

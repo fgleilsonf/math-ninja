@@ -343,11 +343,6 @@ function scene:create()
     end
 
     function gameOver ()
-        local pontuacao = tonumber ( getPontuacao() )
-        if (scores > pontuacao) then
-            setPontuacao(scores)
-        end
-
         Runtime:removeEventListener("touch", drawSlashLine)
         timer.cancel(responseTimer)
         timer.cancel(ballTimer)
