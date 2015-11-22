@@ -2,17 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="972fe5f2-520e-45d2-888c-a30188fb9c06" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Thumbs.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Zunware_SlideView.lua" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cut.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/explosion.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/ok.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pontos _ jogo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/preExplosion.wav" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/profile.lua" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/rzxr8n.jpg" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/credits.lua" afterPath="$PROJECT_DIR$/credits.lua" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.lua" afterPath="$PROJECT_DIR$/main.lua" />
     </list>
     <ignored path="math-ninja.iws" />
@@ -55,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.lua" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.lua" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.3211679">
+              <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -75,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="credits.lua" pinned="false" current-in-tab="true">
+      <file leaf-file-name="credits.lua" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/credits.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.27554744">
-              <caret line="70" column="10" selection-start-line="70" selection-start-column="10" selection-end-line="72" selection-end-column="10" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -147,8 +136,8 @@
         <option value="$PROJECT_DIR$/gameover.lua" />
         <option value="$PROJECT_DIR$/tutorial.lua" />
         <option value="$PROJECT_DIR$/game.lua" />
-        <option value="$PROJECT_DIR$/main.lua" />
         <option value="$PROJECT_DIR$/credits.lua" />
+        <option value="$PROJECT_DIR$/main.lua" />
       </list>
     </option>
   </component>
@@ -702,12 +691,12 @@
       <workItem from="1448054238734" duration="6545000" />
       <workItem from="1448097163497" duration="12327000" />
       <workItem from="1448126983398" duration="19171000" />
-      <workItem from="1448185101853" duration="11069000" />
+      <workItem from="1448185101853" duration="11192000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="174762000" />
+    <option name="totallyTimeSpent" value="174885000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="17" width="1100" height="999" extended-state="0" />
@@ -1113,18 +1102,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.lua">
+    <entry file="file://$PROJECT_DIR$/credits.lua">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/credits.lua">
+    <entry file="file://$PROJECT_DIR$/main.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27554744">
-          <caret line="70" column="10" selection-start-line="70" selection-start-column="10" selection-end-line="72" selection-end-column="10" />
+        <state vertical-scroll-proportion="0.3211679">
+          <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
           <folding />
         </state>
       </provider>
