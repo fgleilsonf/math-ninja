@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="972fe5f2-520e-45d2-888c-a30188fb9c06" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/tutorial/1.png" afterPath="$PROJECT_DIR$/images/tutorial/1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/tutorial/2.png" afterPath="$PROJECT_DIR$/images/tutorial/2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/tutorial/3.png" afterPath="$PROJECT_DIR$/images/tutorial/3.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/tutorial/4.png" afterPath="$PROJECT_DIR$/images/tutorial/4.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/tutorial/5.png" afterPath="$PROJECT_DIR$/images/tutorial/5.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game.lua" afterPath="$PROJECT_DIR$/game.lua" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tutorial.lua" afterPath="$PROJECT_DIR$/tutorial.lua" />
     </list>
     <ignored path="math-ninja.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,8 +31,8 @@
       <file leaf-file-name="tutorial.lua" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tutorial.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.888889">
-              <caret line="362" column="8" selection-start-line="362" selection-start-column="8" selection-end-line="365" selection-end-column="11" />
+            <state vertical-scroll-proportion="-14.694445">
+              <caret line="64" column="21" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -40,27 +42,27 @@
         <entry file="file://$PROJECT_DIR$/menu.lua">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="4" selection-start-line="32" selection-start-column="4" selection-end-line="35" selection-end-column="30" />
+              <caret line="34" column="27" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.lua" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.lua" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="0.23769508">
               <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game.lua" pinned="false" current-in-tab="true">
+      <file leaf-file-name="game.lua" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.23522459">
-              <caret line="371" column="7" selection-start-line="371" selection-start-column="7" selection-end-line="371" selection-end-column="7" />
+            <state vertical-scroll-proportion="-7.361111">
+              <caret line="374" column="53" selection-start-line="374" selection-start-column="53" selection-end-line="374" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -97,9 +99,9 @@
         <option value="$PROJECT_DIR$/path_files.lua" />
         <option value="$PROJECT_DIR$/gameover.lua" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/main.lua" />
-        <option value="$PROJECT_DIR$/tutorial.lua" />
         <option value="$PROJECT_DIR$/game.lua" />
+        <option value="$PROJECT_DIR$/tutorial.lua" />
+        <option value="$PROJECT_DIR$/main.lua" />
       </list>
     </option>
   </component>
@@ -116,10 +118,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="1938" />
-    <option name="height" value="1048" />
+    <option name="x" value="-8" />
+    <option name="y" value="17" />
+    <option name="width" value="1100" />
+    <option name="height" value="999" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -153,7 +155,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="game&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/game.lua&#10;menu&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/menu.lua&#10;main&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/main.lua&#10;tutori&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/tutorial.lua&#10;rea&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/README.md&#10;root&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/root-square.lua&#10;ma&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/main.lua&#10;dr&#9;null&#9;null&#10;gam&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/gameover.lua&#10;pat&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/path_files.lua&#10;cach&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/cache.lua&#10;fat&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/fatorial.lua&#10;number&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/number-square.lua&#10;credi&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/credits.lua&#10;tuto&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/tutorial.lua&#10;num&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/number-square.lua&#10;cre&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/credits.lua&#10;gloss&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/glossario.lua&#10;4-ope&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/4-operations.lua&#10;glos&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/glossario.lua&#10;4-op&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/4-operations.lua&#10;4&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/4-operations.lua&#10;op&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/options-menu.lua&#10;tu&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/tutorial.lua&#10;path&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/path_files.lua&#10;men&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/menu.lua&#10;4-oper&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/4-operations.lua&#10;roo&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/root-square.lua&#10;mai&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/main.lua&#10;root-sq&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/root-square.lua&#10;gameove&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/gameover.lua&#10;g&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/game.lua&#10;set&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/setup.lua" />
+    <property name="SearchEverywhereHistoryKey" value="ma&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/main.lua&#10;game&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/game.lua&#10;menu&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/menu.lua&#10;main&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/main.lua&#10;tutori&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/tutorial.lua&#10;rea&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/README.md&#10;root&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/root-square.lua&#10;dr&#9;null&#9;null&#10;gam&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/gameover.lua&#10;pat&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/path_files.lua&#10;cach&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/cache.lua&#10;fat&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/fatorial.lua&#10;number&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/number-square.lua&#10;credi&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/credits.lua&#10;tuto&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/tutorial.lua&#10;num&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/number-square.lua&#10;cre&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/credits.lua&#10;gloss&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/glossario.lua&#10;4-ope&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/4-operations.lua&#10;glos&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/glossario.lua&#10;4-op&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/4-operations.lua&#10;4&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/4-operations.lua&#10;op&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/options-menu.lua&#10;tu&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/tutorial.lua&#10;path&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/path_files.lua&#10;men&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/menu.lua&#10;4-oper&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/4-operations.lua&#10;roo&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/root-square.lua&#10;mai&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/main.lua&#10;root-sq&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/root-square.lua&#10;gameove&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/gameover.lua&#10;g&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/game.lua&#10;set&#9;FILE&#9;file://C:/Users/gleil/OneDrive/Documentos/Projetos/math-ninja/setup.lua" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="#com.sylvanaar.idea.Lua.run.LuaConfigurationType" factoryName="Lua Script">
@@ -652,15 +654,15 @@
       <workItem from="1448009685992" duration="1239000" />
       <workItem from="1448054238734" duration="6545000" />
       <workItem from="1448097163497" duration="12327000" />
-      <workItem from="1448126983398" duration="13631000" />
+      <workItem from="1448126983398" duration="16610000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="158153000" />
+    <option name="totallyTimeSpent" value="161132000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <frame x="-8" y="17" width="1100" height="999" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1078,34 +1080,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/menu.lua">
+    <entry file="file://$PROJECT_DIR$/game.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="4" selection-start-line="32" selection-start-column="4" selection-end-line="35" selection-end-column="30" />
+        <state vertical-scroll-proportion="-7.361111">
+          <caret line="374" column="53" selection-start-line="374" selection-start-column="53" selection-end-line="374" selection-end-column="53" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.lua">
+    <entry file="file://$PROJECT_DIR$/menu.lua">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <caret line="34" column="27" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tutorial.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.888889">
-          <caret line="362" column="8" selection-start-line="362" selection-start-column="8" selection-end-line="365" selection-end-column="11" />
+        <state vertical-scroll-proportion="-14.694445">
+          <caret line="64" column="21" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game.lua">
+    <entry file="file://$PROJECT_DIR$/main.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23522459">
-          <caret line="371" column="7" selection-start-line="371" selection-start-column="7" selection-end-line="371" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.23769508">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>

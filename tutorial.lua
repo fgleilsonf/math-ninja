@@ -55,8 +55,23 @@ function scene:create( )
 
             slider:insert(p)
 
-            p.width = (xMax - xMin) - 100
-            p.height = (yMax - yMin) - 250
+            if (i == 1) then
+                p.width = (xMax - xMin) - 430
+                p.height = (yMax - yMin) - 320
+            elseif (i == 2) then
+                p.width = (xMax - xMin) - 200
+                p.height = (yMax - yMin) - 380
+            elseif (i == 3) then
+                p.width = (xMax - xMin) - 250
+                p.height = (yMax - yMin) - 230
+            elseif (i == 4 or i == 5) then
+                p.width = (xMax - xMin) - 120
+                p.height = (yMax - yMin) - 280
+            else
+                p.width = (xMax - xMin) - 200
+                p.height = (yMax - yMin) - 380
+            end
+
             p.x = _W * 0.5
             p.y = _H * 0.5
 
@@ -260,7 +275,6 @@ function scene:create( )
     }
 
     local slideImages = new(images, nil)
-    slideImages.strokeWidth = 50
     sceneGroup:insert(slideImages)
 
     local starHorizontalBaixo = display.newLine( 977, 522, 50, 522)
