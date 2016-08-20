@@ -1,5 +1,8 @@
 # Math Ninja
 Desenvolvido para Trabalho de Estágio 1 - FA7
+
+[Disponível na Play Store](https://play.google.com/store/apps/details?id=br.com.gleilson.mathninja)
+
 ![Math Ninja](images/mathninjalogo.png)
 
 ## Demo
